@@ -18,8 +18,8 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('chongmu.urls')),
-    url(r'^login/', include('login.urls')),
-    url(r'^manager/', include('manager.urls')),
-    url(r'^member/', include('member.urls')),
+    url(r'', include('chongmu.urls', namespace='chongmu')),
+    url(r'^login/', include('login.urls', namespace='login')),
+    url(r'^manager/', include('manager.urls', namespace='manager')),
+    url(r'^member/', include('member.urls', namespace='member')),
 ]

@@ -20,12 +20,17 @@ app_name = 'chongmu'
 urlpatterns = [
     # ex : /
     url(r'^$', views.index, name='index' ),
+    # ex : /main
+    url(r'^main/$', views.main, name='main' ),
+    # ex : /about
+    url(r'^about/$', views.about, name='about' ),
+    # ex : /guide
+    url(r'^guide/$', views.guide, name='guide' ),
+
     # ex : /post
     url(r'^post/$', views.post, name='post' ),
     # ex : /contact
     url(r'^contact/$', views.contact, name='contact' ),
-    # ex : /about
-    url(r'^about/$', views.about, name='about' ),
     # ex : /meta
     url(r'^meta/$', views.meta, name='meta' ),
 

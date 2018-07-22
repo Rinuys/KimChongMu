@@ -16,17 +16,19 @@ Including another URLconf
 from django.conf.urls import url
 from . import views
 
-app_name = 'chongmu'
+app_name = 'manager'
 urlpatterns = [
-    # ex : /
+    # ex : /manager
     url(r'^$', views.index, name='index' ),
-    # ex : /post
-    url(r'^post/$', views.post, name='post' ),
-    # ex : /contact
-    url(r'^contact/$', views.contact, name='contact' ),
-    # ex : /about
-    url(r'^about/$', views.about, name='about' ),
-    # ex : /meta
-    url(r'^meta/$', views.meta, name='meta' ),
+    # ex : /manager/create
+    url(r'^create/$', views.create, name='create' ),
+    # ex : /manager/member
+    url(r'^member/$', views.member, name='member' ),
+    # ex : /manager/rule
+    url(r'^rule/$', views.rule, name='rule' ),
+    # ex : /manager/meeting
+    url(r'^meeting/$', views.meeting, name='meeting' ),
+    # ex : /manager/defaulter
+    url(r'^defaulter/$', views.defaulter, name='defaulter' ),
 
 ]
