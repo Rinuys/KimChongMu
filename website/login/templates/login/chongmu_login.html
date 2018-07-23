@@ -1,0 +1,41 @@
+
+<link rel = "stylesheet" type="text/css" href="..\static\login.css">
+<!--로그인 중에 login화면으로 오게 될 경우-->
+{% if request.session.member_id %}
+<p>이미 로그인 중입니다.</p>
+<a href="../main"><input type="button" value="홈으로"></a>
+
+<!--일반적인 로그인 화면-->
+{% else %}
+<form method="POST" action='try_login'>
+  {% csrf_token %}
+  <div class ="wrap">
+    <button><a href="../">>홈으로</a></button>
+
+   <div class="form">
+    <dl class="form2">
+     <div class="form3">
+      <dt><label>고객ID</label></dt><!-- id="box1"-->
+      <dd><input id="m_id" name="m_id" type="text" size = "30" maxlength="18" placeholder="아이디"></dd>
+
+     <div class="clear"></div><br/>
+     <div>
+      <dt><label>비밀번호</label></dt>
+
+      <dd><input id="m_pass" name="m_pass" type="password" size = "30" maxlegnth="18" placeholder="비밀번호"></dd>
+     </div>
+     </div>
+     <div class="clear"></div>
+     <div class="join_footer">
+       <input type="submit" value="로그인">
+      <!-- <div class="clear"></div>-->
+       <label>
+         <a href="../make_accounts"><input type="button" value="회원가입"></a>
+       </label>
+     </div>
+    </dl>
+
+    </div>
+  </div>
+</form>
+{% endif %}

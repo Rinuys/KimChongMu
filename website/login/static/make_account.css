@@ -1,0 +1,187 @@
+@import url(../../static/admin/css/fonts.css);
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}/*
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}*//*
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}*/
+/*초기화 끝 css 시작*/
+.body{
+/*  font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;*/
+  /*font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;*/
+
+  font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+  width: 1000px;
+  margin: 0 auto;
+}
+/*
+table .label{
+ font-size: 1em;
+ color : #aabbcc;
+}
+table .notice{
+ color: blue;
+ font-size: 0.7em;
+ display : none;
+}
+*/
+.wrapper_table{
+ margin: 50px auto;
+ box-shadow :0 0 10px #bbb;
+ /*border: 1px solid blue;*/
+ height: auto;
+ text-align: center;
+ width: 500px;
+
+}
+/*join_header*/
+.wrapper_table .join_header{
+ background-color: rgb(54, 68, 98);/*#3c9;*/
+ color : rgb(179, 178, 178);
+ text-align: center;
+ border-bottom: 1px solid #bbb;
+ height: 50px;
+}
+
+.join_header p{
+ float: left;
+ font-size: 1.2em;
+ font-weight: bold;
+ padding: 13px 0px 30px 13px;
+}
+/*join_body*/
+.wrapper_table .join_body{
+ border-bottom: 1px solid #bbb;
+ font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+ height: auto;
+ text-align: center;
+ padding: 0px 50px 20px 50px;
+}
+
+.join_body dt{
+ margin-top: 20px;
+ height: 20px;
+ text-align: left;
+}
+
+.join_body dt label{
+ font-size: 0.8em;
+ color: #aaa;
+}
+
+.join_body dd input{
+ width: 360px;
+ height: 40px;
+ padding: 0 20px;
+ font-size: 20px;
+}
+
+.join_body dd select{
+ font-size: 20px;
+ width: 115px;
+ height: 40px;
+}
+
+#m_tel2, #m_tel3{
+ width: 110px;
+ height: 36px;
+ padding : 0;
+}
+/*
+#m_gender{
+ width: 100px;
+}
+*/
+/*join_footer*/
+.wrapper_table .join_footer{
+ height: 50px;
+ text-align: center;
+}
+
+.join_footer input{
+ border: 0px;
+ font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+
+ background-color: rgb(54, 68, 98);/*#3c9;*/
+ color : rgb(179, 178, 178);
+ width: 400px;
+ height: 40px;
+ margin: 5px;
+ font-size: 20px;
+
+}
+/*
+.arrow_box {
+ margin-top:20px;
+ position: relative;
+ padding: 5px;
+ background: #88b7d5;
+ border: 4px solid #c2e1f5;
+ text-align: left;
+}
+.arrow_box:after, .arrow_box:before {
+ bottom: 100%;
+ left: 50%;
+ border: solid transparent;
+ content: " ";
+ height: 0;
+ width: 0;
+ position: absolute;
+ pointer-events: none;
+}
+
+.arrow_box:after {
+ border-color: rgba(136, 183, 213, 0);
+ border-bottom-color: #88b7d5;
+ border-width: 10px;
+ margin-left: -180px;
+}
+.arrow_box:before {
+ border-color: rgba(194, 225, 245, 0);
+ border-bottom-color: #c2e1f5;
+ border-width: 16px;
+ margin-left: -186px;
+}
+
+.arrow_box a{
+  font-size:0.7em;
+}
+*/

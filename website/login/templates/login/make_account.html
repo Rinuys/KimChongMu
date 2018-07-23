@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <title> 회원가입 </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel = "stylesheet" type="text/css" href="..\static\make_account.css"><!--href="..\..\static\login\make_account.css">-->
+    <style type = "text/css"></style><!--view.py의 make_accouts에서선언한 변후 customers인듯-->
+  </head>
+  <body>
+    <div class = "body">
+
+      <form action = "{%url 'made_new_account'%}" method = "POST"><!--<form action = "make_accounts/{{customers}}" format>-->
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class ="wrapper_table">
+         <div class="join_header">
+          <p>회원 가입</p>
+         </div>
+         <div class="join_body">
+          <dl>
+           <div>
+            <dt><label>고객ID</label></dt>
+            <dd><input id="m_id" name="m_id" type="text" size = "30" maxlength="18" placeholder="아이디"></dd>
+           </div>
+
+           <div>
+            <dt><label>비밀번호</label></dt>
+            <dd><input id="m_pass" name="m_pass" type="password" size = "30" maxlegnth="18" placeholder="비밀번호"></dd>
+           </div>
+
+           <dt><label>이름</label></dt>
+           <dd><input id="m_name" name="m_name" type="text" size = "30" maxlength="18" placeholder="이름"></dd>
+
+          </dl>
+         </div>
+         <div class="join_footer">
+
+           <input type="submit" value="가입" />
+         </div>
+        </div>
+      </form>
+
+     </div>
+  </body>
+
+</html>

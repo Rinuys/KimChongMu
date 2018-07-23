@@ -1,0 +1,156 @@
+@import url(../../static/admin/css/fonts.css);
+
+.member {
+ font-size: 50px;
+ text-shadow: 0 0 10px #666;
+ color: #fff;
+ margin: 0 auto;
+ text-align: center;
+ text-transform: capitalize;
+ font-family: "맑은 고딕";
+ font-style: italic;
+}
+
+body {
+  font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+
+ font-size: 15px;
+}
+.menubar{
+  background-color : rgb(73, 127, 207);
+}
+
+.wrapper_table{
+ margin: 70px auto;
+ box-shadow :0 0 10px #bbb;
+ /*border: 1px solid blue;*/
+ height: auto;
+ text-align: center;
+ width: 500px;
+
+}
+/*join_header*/
+.wrapper_table/* .join_header*/{
+ background-color: rgb(54, 68, 98);/*#3c9;*/
+ color : rgb(221, 221, 221);
+ text-align: center;
+ border-bottom: 1px solid #bbb;
+ height: 300px;
+ width : 498px;
+}
+/*
+.join_header p{
+ float: left;
+ font-size: 1.2em;
+ font-weight: bold;
+ padding: 13px 0px 30px 13px;
+}*/
+/*join_body*/
+.wrapper_table .join_body{
+/* border-bottom: 1px solid #bbb;*/
+ font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+ height: auto;
+ text-align: center;
+ /*background: rgb(210, 135, 194);*/
+ padding: 0px 50px 20px 50px;
+}
+
+
+.form {
+ width: 498px;
+ height: 300px;
+ /*border-radius: 25px;*/
+ box-shadow :0 0 10px #bbb;
+ margin: 200px auto;
+ margin-left, margin-right : 500px auto;
+ padding : 100px auto;
+ /*background-color : green;*/
+ float : right;
+}
+
+
+.form2 {
+ width: 380px;
+ min-width: 320px;
+ height: 150px;
+ margin: 70px auto;
+ /*margin-left : 10px;*/
+
+ /*margin-left:20px;*/
+ /*background-color : red;*/
+}
+.form3{
+  margin-left : 10px;
+  font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+
+}
+.form3 label {
+ width: 80px;
+ height: 20px;
+ font-size: 18px;
+
+ /*left : -60px;*/
+ /*  display: block; */
+ float: left;
+ /*background-color :purple;*/
+}
+.form3 input{
+  height : 30px;
+  margin-left : 10px;
+}
+
+.form4 {
+/*  margin : 0px 0px 10px 10px;*//*상하우좌*/
+ padding: 0px 0px 0px 270px;
+ /*background-color :yellow;*/
+}
+
+#wrap {
+ width: 600px;
+ height: 500px;
+ margin: 0 auto;
+ /*background-color :rgb(221, 136, 136);*/
+}
+
+.clear {
+ clear: both;
+}
+
+input[type="submit"] {
+ /*float: left;*/
+ /*  display:block; */
+ height: 50px;
+ width : 167px;
+ margin-top : 27px;
+ margin-left : 10px;
+ /*margin-left : 10px;*/
+ /*padding-bottom : -5px;*/
+ /*left : -5px;*/
+ font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+ font-size : 18px;
+/*  background-color: rgb(54, 68, 98);*//*#3c9;*/
+/*  color : rgb(179, 178, 178);*/
+ background: rgb(54, 68, 98);/*#FFBB00;*/
+ color : rgb(210, 210, 210);
+ border-radius: 5px;
+ border: none;
+ border-radius: 5px;
+ /*padding : 20px;*/
+ /*font-family: "맑은 고딕";*/
+}
+input[type="button"] {
+ border-radius: 5px;
+ height: 50px;
+ background: rgb(54, 68, 98);/*gray;*/
+ color : rgb(210, 210, 210);
+ border-radius: 5px;
+ width: 167px;
+ /*font-family:"맑은 고딕";*/
+ margin-top:27px;
+ margin-right:20px;
+ font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+ font-size : 18px;
+}
+input[type="checkbox"] {
+ margin-top:20px;
+}

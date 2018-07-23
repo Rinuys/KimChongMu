@@ -19,7 +19,10 @@ from django.conf.urls import url, include
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('chongmu.urls', namespace='chongmu')),
-    url(r'^login/', include('login.urls', namespace='login')),
+    url(r'', include('login.urls', namespace='chongmu')),
+
+#    url(r'^meta_login/', include('login.urls', namespace='meta_login2')),
+#    url(r'^meta_login/', include('django.contrib.auth.urls')),
     url(r'^manager/', include('manager.urls', namespace='manager')),
     url(r'^member/', include('member.urls', namespace='member')),
 ]
