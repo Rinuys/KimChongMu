@@ -15,18 +15,6 @@ def index(request):
 def create(request):
     return render(request, 'manager/create.html', {})
 
-def member(request):
-    return render(request, 'manager/member.html', {})
-
-def rule(request):
-    return render(request, 'manager/rule.html', {})
-
-def meeting(request):
-    return render(request, 'manager/meeting.html', {})
-
-def defaulter(request):
-    return render(request, 'manager/defaulter.html', {})
-
 def createExec(request):
     clubName = request.POST['name']
     club = Club(name = clubName, founderID = "test")
@@ -37,3 +25,60 @@ def createExec(request):
     club.members.add(member)
     club.save()
     return HttpResponseRedirect(reverse('manager:index'))
+
+
+def member(request):
+    id = "test123"
+    member = get_object_or_404(Member, memberID=id)
+    return render(request, 'manager/member.html', {'member': member})
+
+def addMember(request):
+    clubName = request.POST['clubName']
+    memberID = request.POST['memberID']
+
+    club = get_object_or_404(Club, name=clubName)
+    member = get_object_or_404(Member, memberID=memberID)
+
+    club.members.add(member)
+    club.save()
+
+    return HttpResponseRedirect(reverse('manager:member'))
+
+
+
+def rule(request):
+    id = "test123"
+    member = get_object_or_404(Member, memberID=id)
+    return render(request, 'manager/rule.html', {'member': member})
+
+def textMining(request):
+    clubName = request.POST['clubName']
+    club = get_object_or_404(Club, name=clubName)
+    rule = request.POST['rule']
+    #text mining~~~!
+    result = False
+
+    if result is True:
+        return HttpResponseRedirect(reverse('manager:rule'))
+    else:
+        return render(request, 'manager/moreInfo.html', {'club': club})
+    
+
+def uploadRule(request):
+    rule = request.POST['rule']
+    
+    result = False
+
+    return HttpResponseRedirect(reverse('manager:rule'))
+    
+    
+
+
+
+def meeting(request):
+    return render(request, 'manager/meeting.html', {})
+
+
+
+def defaulter(request):
+    return render(request, 'manager/defaulter.html', {})
