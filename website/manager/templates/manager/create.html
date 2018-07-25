@@ -71,7 +71,11 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <p>클럽생성 페이지입니다.</p>
           <h2 class="section-heading">냉무</h2>
-          <p>냉무</p>
+          <p><form action="{% url 'manager:createExec' %}" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="클럽명" id="name" name="name">
+            <input type="submit" value="클럽생성" />
+            </form></p>
           <blockquote class="blockquote">냉무냉무</blockquote>
         </div>
       </div>

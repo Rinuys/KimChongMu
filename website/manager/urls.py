@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index' ),
     # ex : /manager/create
     url(r'^create/$', views.create, name='create' ),
+    # ex : /manager/create/exec
+    url(r'^create/exec/$', views.createExec, name='createExec' ),
     # ex : /manager/member
     url(r'^member/$', views.member, name='member' ),
     # ex : /manager/rule
