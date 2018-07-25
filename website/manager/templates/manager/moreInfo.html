@@ -70,14 +70,22 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
               <h2 class="section-heading">회칙업로드</h2>
-              <p><form action="{% url 'manager:textMining' %}" method="post">
+              <p><form action="{% url 'manager:uploadRule' %}" method="post">
                   {% csrf_token %}
-                  {% for club in member.club_set.all%}
-                    <input type="radio" name="clubName" id="clubName" value="{{club.name}}"/>
-                    {{club.name}}
-                    <br>
-                  {% endfor %}
-                  <input type="file" placeholder="등록할 회칙 파일" id="rule" name="rule"/>
+                  클럽 : {{club.name}}
+                  <br>
+                  <input type="text" placeholder="회비" id="fee" name="fee">
+                  납부주기
+                  <br>
+                  <input type="radio" name="cycle" value="month">
+                  <input type="radio" name="cycle" value="">
+                  <input type="radio" name="cycle" value="month">
+
+                  주별<input type="radio" placeholder="회비" id="name" name="name">
+                  월별<input type="radio" placeholder="회비" id="name" name="name">
+                  
+                  <input type="text" placeholder="최대 지각 횟수" id="name" name="name">
+                  <input type="text" placeholder="최대 결석 횟수" id="name" name="name">
                   <input type="submit" value="등록" />
               </form></p>
               <blockquote class="blockquote">냉무냉무</blockquote>
