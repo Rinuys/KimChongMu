@@ -27,14 +27,12 @@ class Club(models.Model):
 
 class Rule(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    ruleID = models.CharField(max_length = 50)
-    startTime = models.IntegerField(default=0)
+    ruleID = models.IntegerField(default = 0)
     time = models.IntegerField(default=0)
     balance = models.IntegerField(default=0)
-    late = models.IntegerField(default=0)
     numberOfLateness = models.IntegerField(default=0)
-    absent = models.IntegerField(default=0)
-    numberOfabsence = models.IntegerField(default=0)
+    numberOfAbsence = models.IntegerField(default=0)
 
     def __str__(self):
         return self.id
+
