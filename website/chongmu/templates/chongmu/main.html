@@ -1,13 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
+{% if request.session.member_id %}
   <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
+
 
     <title>김총무</title>
 
@@ -36,6 +38,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            {% if request.session.member_id %}
+            <li class="nav-item">
+              <h5> {{request.session.member_id}} 님, 환영합니다. </h5>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'chongmu:guide' %}">김총무</a>
             </li>
@@ -45,6 +52,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'manager:index' %}">클럽 관리</a>
             </li>
+            {% if request.session.member_id %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">로그아웃</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -144,5 +156,12 @@
     <script src='{% static "js/clean-blog.min.js" %}'></script>
 
   </body>
+  {% else %}
+  <body>
 
+
+    <h2>로그인이 필요한 페이지입니다.</h2>
+
+  </body>
+  {% endif %}
 </html>
