@@ -10,20 +10,3 @@ def index(request):
 
 def main(request):
     return render(request, 'chongmu/main.html', {})
-
-def about(request):
-    return render(request, 'chongmu/about.html', {})
-
-def guide(request):
-    return render(request, 'chongmu/guide.html', {})
-
-
-
-def post(request):
-    return render(request, 'chongmu/post.html', {})
-
-def contact(request):
-    return render(request, 'chongmu/contact.html', {})
-    
-def meta(request):
-    return render(request, 'chongmu/meta.html', {})
