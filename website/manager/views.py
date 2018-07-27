@@ -64,10 +64,19 @@ def textMining(request):
         return render(request, 'manager/moreInfo.html', {'club': club})
     
 
-def uploadRule(request):
-    rule = request.POST['rule']
+def uploadRule(request): 
+    fee = request.POST['fee']
+    cycle = request.POST['cycle']
+    date = request.POST['date']
+    lateness = request.POST['lateness']
+    absence = request.POST['absence']
+    violationFee = request.POST['violationFee']
     
-    result = False
+    clubName = request.POST['clubName']
+    club = get_object_or_404(Club, name=clubName)
+    club.rule_set.create( ruleID = 1, time=date, balance = fee)
+    club.rule_set.create( ruleID = 2, balance=int(violationFee), numberOfLateness=int(lateness), numberOfAbsence=int(absence))
+    club.save()
 
     return HttpResponseRedirect(reverse('manager:rule'))
     

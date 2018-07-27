@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
     <script type="text/javascript">
+        var userAccount;
+
         window.addEventListener('load', function () {
             if (typeof web3 !== 'undefined') {
                 console.log('Web3 Detected! ' + web3.currentProvider.constructor.name)
@@ -27,6 +29,8 @@
                 document.getElementById('output').innerHtml = 'Please download and install Metamask: <a href="https://metamask.io/">https://metamask.io/</a>'
             }
         })
+
+
     </script>
     <button><a href="/chongmu_login">>김총무로그인하러가기</a></button>
 </head>

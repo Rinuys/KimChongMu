@@ -62,9 +62,11 @@ body {
  /*border-radius: 25px;*/
  box-shadow :0 0 10px #bbb;
  margin: 200px auto;
- margin-left, margin-right : 500px auto;
+ /*margin-left, margin-right : 500px auto;*/
  padding : 100px auto;
  /*background-color : green;*/
+ /*margin: 0;
+ padding: 0;*/
  float : right;
 }
 

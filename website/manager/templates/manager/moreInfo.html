@@ -74,18 +74,27 @@
                   {% csrf_token %}
                   클럽 : {{club.name}}
                   <br>
-                  <input type="text" placeholder="회비" id="fee" name="fee">
+                  <input type="number" placeholder="회비" id="fee" name="fee">
+                  <br>
                   납부주기
                   <br>
-                  <input type="radio" name="cycle" value="month">
-                  <input type="radio" name="cycle" value="">
-                  <input type="radio" name="cycle" value="month">
+                  매월 x일 (1~30) <input type="radio" name="cycle" value="month" onclick="div_OnOff(this.value,'con1', 'con2');">
+                  <br>
+                  <div id="con1" style="display:none">
+                      <input type="number" placeholder="x" id="date" name="date">
+                  </div>
+                  사용자 지정 <input type="radio" name="cycle" value="userDefine" onclick="div_OnOff(this.value,'con1', 'con2');">
+                 
 
-                  주별<input type="radio" placeholder="회비" id="name" name="name">
-                  월별<input type="radio" placeholder="회비" id="name" name="name">
-                  
-                  <input type="text" placeholder="최대 지각 횟수" id="name" name="name">
-                  <input type="text" placeholder="최대 결석 횟수" id="name" name="name">
+                  <br>
+                  <input type="number" placeholder="최대 지각 횟수" id="lateness" name="lateness">
+                  <br>
+                  <input type="number" placeholder="최대 결석 횟수" id="absence" name="absence">
+                  <br>
+                  <input type="number" placeholder="벌금" id="violationFee" name="violationFee">
+                  <br>
+                  <br>
+                  <input type="hidden" placeholder="벌금" id="clubName" name="clubName" value={{club.name}}>
                   <input type="submit" value="등록" />
               </form></p>
               <blockquote class="blockquote">냉무냉무</blockquote>
@@ -138,6 +147,19 @@
 
     <!-- Custom scripts for this template -->
     <script src='{% static "js/clean-blog.min.js" %}'></script>
+
+    <script>
+        function div_OnOff(v,id1, id2){
+         // 라디오 버튼 value 값 조건 비교
+         if(v == "month"){
+          document.getElementById(id1).style.display = ""; // 보여줌
+          document.getElementById(id2).style.display = "none"; // 숨김
+         }else if(v == "userDefine"){
+          document.getElementById(id1).style.display = "none"; // 숨김
+          document.getElementById(id2).style.display = ""; // 보여줌
+         }
+        }
+    </script>
 
   </body>
 
