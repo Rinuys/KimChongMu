@@ -1,0 +1,20 @@
+{
+    "abi": "[{\"constant\":true,\"inputs\":[],\"name\":\"totalBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"_from\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"_to\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferTo\",\"type\":\"event\"}]",
+    "bytecode": "6080604052600060028181556003919091556004805460ff1916909117905534801561002a57600080fd5b506099806100396000396000f300608060405260043610603e5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663ad7a672f81146043575b600080fd5b348015604e57600080fd5b5060556067565b60408051918252519081900360200190f35b600354905600a165627a7a72305820833ebc6dde523de915415f140ba963fb9192ac70e084c559b11ee7d302fd748f0029",
+    "functionHashes": {
+        "totalBalance()": "ad7a672f"
+    },
+    "gasEstimates": {
+        "creation": [
+            30332,
+            30600
+        ],
+        "external": {
+            "totalBalance()": 384
+        },
+        "internal": {
+            "stringToId(string memory)": null
+        }
+    },
+    "runtimeBytecode": "608060405260043610603e5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663ad7a672f81146043575b600080fd5b348015604e57600080fd5b5060556067565b60408051918252519081900360200190f35b600354905600a165627a7a72305820833ebc6dde523de915415f140ba963fb9192ac70e084c559b11ee7d302fd748f0029"
+}
