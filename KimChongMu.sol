@@ -12,7 +12,7 @@ contract KimChongMu{                // KimChongMu contract
     struct Member{                  // 멤버의 구조체
         bytes32 id;                 // 멤버의 id(바이트32)
         uint8 authority;            // 멤버의 권한(1:master, 2...)
-        uint16 attendance;          // 멤버의 출석수
+        uint16 attendance;          // 멤버의 출석수 결석수 기타등등
         address account;            // 멤버의 지갑계정
         uint256 balance;            // 멤버의 지분
     }
@@ -32,11 +32,19 @@ contract KimChongMu{                // KimChongMu contract
     
     event transferTo(string _from, string _to, uint256 _value);     // 송금할 경우 이벤트 호출 
     
-    function stringToId(string _id) internal pure returns(bytes32){ // string형식의 id를
-        return keccak256(bytes(_id));                               // byte32형식으로 변환
-    }                                                               // (keccak256)
+    function stringToId(string _id) 
+        internal 
+        pure 
+        returns(bytes32)
+    {                                       // string형식의 id를
+        return keccak256(bytes(_id));       // byte32형식으로 변환
+    }                                       // (keccak256)
     
-    function totalBalance() public view returns(uint){              // 전체 balance를 출력
+    function totalBalance() 
+        public 
+        view 
+        returns(uint)
+    {                                       // 전체 balance를 출력
         return clubBalance;
     }
     
