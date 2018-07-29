@@ -4,7 +4,10 @@ import "./KimChongMu.sol";
 contract ClubManager is KimChongMu{ // 동아리 관리에 필요한 Contract
     event ClubCreated(string _clubId);  // 동아리를 만들면 부르는 event
     
-    function clubCreate(string _clubId) public returns(bool){       // club을 생성하는 함수
+    function clubCreate(string _clubId) 
+        public 
+        returns(bool)
+    {                               // club을 생성하는 함수
         require(!isClubIdExist(_clubId));
         Club memory temp;           // temp에 저장하고 배열에 추가하는 방식
         temp.id = stringToId(_clubId);  // id를 변환해서 입력
@@ -17,21 +20,27 @@ contract ClubManager is KimChongMu{ // 동아리 관리에 필요한 Contract
         return true;                // id를 리턴
     }
     
-    function isClubIdExist(string _clubId) internal view returns(bool){
+    function isClubIdExist(string _clubId) 
+        internal 
+        view 
+        returns(bool)
+    {                               // 동아리 id가 존재하는지 검사하는 함수
         bytes32 clubId = stringToId(_clubId);
         uint i;
         for(i = 0 ; i < numberOfClub ; i++ ){
-            if(clubIdArr[i] == clubId){
+            if(clubIdArr[i] == clubId){ // clubIdArr에 id가 존재하는지 검사
                 break;
             }
         }
-        return (i != numberOfClub);
+        return (i != numberOfClub); // 존재하면 true, 없으면 false
     }
     
-    
-    function getClubBalance(string _clubId) public view returns(uint){  // 동아리의 지분을 리턴
+    function getClubBalance(string _clubId) 
+        public 
+        view 
+        returns(uint)
+    {                               // 동아리의 지분을 리턴
         require(isClubIdExist(_clubId));
         return club[stringToId(_clubId)].balance;
     }
-    
 }

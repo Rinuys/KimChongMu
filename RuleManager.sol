@@ -14,8 +14,15 @@ contract RuleManager is MemberManager{
         _;
     }
     
-    function ruleCreateType1(string _memberId, string _clubId, uint _time, uint256 _balance)
-    public idCheck(_memberId, _clubId){   // 회비 납부 
+    function ruleCreateType1(
+        string _memberId, 
+        string _clubId, 
+        uint _time, 
+        uint256 _balance
+    )
+        public 
+        idCheck(_memberId, _clubId)
+    {   // 회비 납부 
         Rule memory temp;
         temp.ruleId = 1;
         temp.time = _time;
@@ -24,8 +31,17 @@ contract RuleManager is MemberManager{
         emit ruleCreated(1, _memberId, _clubId);
     }
     
-    function ruleCreateType2(string _memberId, string _clubId, uint _time, uint256 _balance, uint8 _numberOfLateness, uint8 _numberOfAbsence)
-    public idCheck(_memberId, _clubId){
+    function ruleCreateType2(
+        string _memberId, 
+        string _clubId, 
+        uint _time, 
+        uint256 _balance, 
+        uint8 _numberOfLateness, 
+        uint8 _numberOfAbsence
+    )
+        public 
+        idCheck(_memberId, _clubId)
+    {
         Rule memory temp;
         temp.ruleId = 2;
         temp.time = _time;
@@ -36,32 +52,75 @@ contract RuleManager is MemberManager{
         emit ruleCreated(2, _memberId, _clubId);
     }
     
-    function setRuleTime(uint8 ruleId, string _memberId, string _clubId, uint _time)
-    public idCheck(_memberId, _clubId){
+    function setRuleTime(
+        uint8 ruleId, 
+        string _memberId, 
+        string _clubId, 
+        uint _time
+    )
+        public 
+        idCheck(_memberId, _clubId)
+    {
         club[stringToId(_clubId)].rule[ruleId].time = _time;
     }
     
-    function setRuleBalance(uint8 ruleId, string _memberId, string _clubId, uint256 _balance)
-    public idCheck(_memberId, _clubId){
+    function setRuleBalance(
+        uint8 ruleId, 
+        string _memberId, 
+        string _clubId, 
+        uint256 _balance
+    )
+        public 
+        idCheck(_memberId, _clubId)
+    {
         club[stringToId(_clubId)].rule[ruleId].balance = _balance;
     }
     
-    function setRuleNumberOfLateness(uint8 ruleId, string _memberId, string _clubId, uint8 _numberOfLateness)
-    public idCheck(_memberId, _clubId){
+    function setRuleNumberOfLateness(
+        uint8 ruleId, 
+        string _memberId, 
+        string _clubId, 
+        uint8 _numberOfLateness
+    )
+        public 
+        idCheck(_memberId, _clubId)
+    {
         club[stringToId(_clubId)].rule[ruleId].numberOfLateness = _numberOfLateness;
     }
     
-    function setRuleNumberOfAbsence(uint8 ruleId, string _memberId, string _clubId, uint8 _numberOfAbsence)
-    public idCheck(_memberId, _clubId){
+    function setRuleNumberOfAbsence(
+        uint8 ruleId, 
+        string _memberId, 
+        string _clubId, 
+        uint8 _numberOfAbsence
+    )
+        public 
+        idCheck(_memberId, _clubId)
+    {
         club[stringToId(_clubId)].rule[ruleId].numberOfAbsence = _numberOfAbsence;
     }
     
     function getRule(uint8 _ruleId, string _memberId, string _clubId)
-    public view returns(uint, uint, uint, uint, uint){
+        public 
+        view 
+        returns(
+            uint, 
+            uint, 
+            uint, 
+            uint, 
+            uint
+        )
+    {
         require(isMemberIdExist(_memberId, _clubId));
         Rule memory temp;
         temp = club[stringToId(_clubId)].rule[_ruleId];
-        return (temp.ruleId, temp.time, temp.balance, temp.numberOfLateness, temp.numberOfAbsence);
+        return (
+            temp.ruleId, 
+            temp.time, 
+            temp.balance, 
+            temp.numberOfLateness, 
+            temp.numberOfAbsence
+        );
     }
     
 }
