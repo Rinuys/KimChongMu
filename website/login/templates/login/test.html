@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>frontend_blockchain</title>
+<!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>-->
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--크립토좀비-->
+
+    <script language="javascript" type="text/javascript" src="web3.min.js"></script><!--web3포함하는 테그-->
+    <!--v0.20.6-->
+<!--    <script type="text/javascript">
+
+</script>-->
+
+</head>
+<body>
+안녕하세요 <메타마스크의 Web3 프로바이더 사용하기>
+  <script>//메타마스크는 web3라는 전역 자바스크립트 객체를 통해 브라우저에 Web3 프로바이더를 주입하네.그러니 자네 앱에서는 web3가 존재하는지 확인하고, 만약 존재한다면 web3.currentProvider를 프로바이더로서 사용하면 되지.
+
+여기 메타마스크에서 제공하는 템플릿 코드가 있네. 사용자가 메타마스크를 설치했는지 확인하고 설치가 안 된 경우 우리 앱을 사용하려면 메타마스크를 설치해야 한다고 알려주는 것이지:
+  window.addEventListener('load', function() {
+
+    // Web3가 브라우저에 주입되었는지 확인(Mist/MetaMask)
+    if (typeof web3 !== 'undefined') {
+      // Mist/MetaMask의 프로바이더 사용
+      web3js = new Web3(web3.currentProvider);
+    } else {
+      // 사용자가 Metamask를 설치하지 않은 경우에 대해 처리
+      // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
+    }
+
+    // 이제 자네 앱을 시작하고 web3에 자유롭게 접근할 수 있네:
+    startApp()
+
+    })
+  </script>
+</body>
+</html>
