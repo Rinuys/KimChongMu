@@ -1,4 +1,5 @@
-
+{% extends "chongmu/base.html" %}
+{% block body %}
 <link rel = "stylesheet" type="text/css" href="..\static\login.css">
 <!--로그인 중에 login화면으로 오게 될 경우-->
 {% if request.session.member_id %}
@@ -7,11 +8,10 @@
 
 <!--일반적인 로그인 화면-->
 {% else %}
+<body>
 <form method="POST" action='try_login'>
   {% csrf_token %}
   <div class ="wrap">
-    <button><a href="../">>홈으로</a></button>
-
    <div class="form", class = "joinbody">
     <dl class="form2">
      <div class="form3">
@@ -38,4 +38,6 @@
     </div>
   </div>
 </form>
+</body>
 {% endif %}
+{% endblock %}
