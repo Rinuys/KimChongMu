@@ -60,19 +60,18 @@ contract MemberManager is ClubManager{                  // 동아리 멤버를 �
         emit transferTo(_memberId, _clubId, value);
     }
     
-    function getMemberBalance(string _memberId, string _clubId) 
+    function getMemberInfo(string _memberId, string _clubId) 
         public 
         view 
-        returns(
-            uint
-        )
-    {                                                                       // 멤버의 지분을 리턴
-        return club[stringToId(_clubId)].member[stringToId(_memberId)].balance;
+        returns(uint8, uint16, uint256, address)
+    {                                                                       // 멤버의 정보를 리턴 
+        Member memory temp = club[stringToId(_clubId)].member[stringToId(_memberId)];
+        return(temp.authority, temp.attendance, temp.balance, temp.account);    
     }
 
     function revertBalance(string _memberId, string _clubId) 
         internal
-    {                                                                       // 멤버의 지분을 반환
+    {                                                                       // 멤버들의 지분을 반환
         require(isMemberIdExist(_memberId, _clubId));
         require(club[stringToId(_clubId)].member[stringToId(_memberId)].authority == 1);
         clubBalance -= club[stringToId(_clubId)].balance;

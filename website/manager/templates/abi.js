@@ -103,6 +103,41 @@ var myABI = [
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_memberId",
+				"type": "string"
+			},
+			{
+				"name": "_clubId",
+				"type": "string"
+			}
+		],
+		"name": "getMemberInfo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"name": "",
+				"type": "uint16"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -126,6 +161,33 @@ var myABI = [
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			}
+		],
+		"name": "getClubInfo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint32"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -260,19 +322,42 @@ var myABI = [
 		"constant": true,
 		"inputs": [
 			{
-				"name": "_memberId",
-				"type": "string"
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "club",
+		"outputs": [
+			{
+				"name": "id",
+				"type": "bytes32"
 			},
+			{
+				"name": "numberOfMember",
+				"type": "uint32"
+			},
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
 			{
 				"name": "_clubId",
 				"type": "string"
 			}
 		],
-		"name": "getMemberBalance",
+		"name": "isClubIdExist",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "bool"
 			}
 		],
 		"payable": false,

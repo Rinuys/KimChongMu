@@ -21,7 +21,7 @@ contract ClubManager is KimChongMu{ // 동아리 관리에 필요한 Contract
     }
     
     function isClubIdExist(string _clubId) 
-        internal 
+        public 
         view 
         returns(bool)
     {                               // 동아리 id가 존재하는지 검사하는 함수
@@ -42,5 +42,10 @@ contract ClubManager is KimChongMu{ // 동아리 관리에 필요한 Contract
     {                               // 동아리의 지분을 리턴
         require(isClubIdExist(_clubId));
         return club[stringToId(_clubId)].balance;
+    }
+    
+    function getClubInfo(string _clubId) public view returns(uint32, uint256, bytes32[]){
+        Club memory temp = club[stringToId(_clubId)];
+        return(temp.numberOfMember, temp.balance, temp.memberIdArr);
     }
 }

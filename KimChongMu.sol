@@ -24,7 +24,7 @@ contract KimChongMu{                // KimChongMu contract
         uint8 numberOfAbsence;      // 1:X      /2:결석수
     }
     
-    mapping(bytes32 => Club) internal club; // club들을 저장하는 매핑변수
+    mapping(bytes32 => Club) public club;   // club들을 저장하는 매핑변수
     bytes32[] internal clubIdArr;           // club들의 id를 저장하는 배열
     uint internal numberOfClub = 0;         // 동아리의 수
     uint256 internal clubBalance = 0;       // 전체 동아리의 계좌(CA)
