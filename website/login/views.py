@@ -6,7 +6,6 @@ from login.my_auth import UserBackend
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView # 오브젝트를 생성하는 뷰 (form 혹은 model과 연결되서 새로운 데이터를 넣을 때 CreateView - generic view를 사용)
 # Create your views here.
-
 from django.http import HttpResponse
 # Create your views here.
 #def make_accounts(request):
