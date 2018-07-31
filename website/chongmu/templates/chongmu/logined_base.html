@@ -1,0 +1,22 @@
+{% extends "chongmu/base.html" %}
+
+  {% block style %}
+    <style>
+      #mainNav { background-color:white !important; box-shadow: 1px 1px 1px 1px rgb(190, 190, 190);}
+      #mainNav .navbar-brand { color:black !important;}
+      #mainNav #navbarResponsive * { color:black !important;}
+    </style>
+  {% endblock %}
+
+  {% block menu %}
+    <li class="nav-item">
+      <h6 class="nav-link"> {{request.session.member_id}} 님, 환영합니다. </h6>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/logout">My Page</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/logout">로그아웃</a>
+    </li>
+    
+  {% endblock %}

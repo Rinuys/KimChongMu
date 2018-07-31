@@ -16,17 +16,23 @@ Including another URLconf
 from django.conf.urls import url
 from . import views
 
-app_name = 'member'
+app_name = 'club'
 urlpatterns = [
-    # ex : /member
-    url(r'^$', views.index, name='index' ),
-    # ex : /member/clubs
-    url(r'^clubs/$', views.clubs, name='clubs' ),
-    # ex : /member/fee
-    url(r'^fee/$', views.fee, name='fee' ),
-    # ex : /member/meeting
+    # ex : /club/<int:clubid>/
+    url(r'^(?P<club_id>\d+)/$', views.index, name='index' ),
+    # ex : /manager/member
+    url(r'^member/$', views.member, name='member' ),
+    # ex : /manager/member/addMember
+    url(r'^create/addMember/$', views.addMember, name='addMember' ),
+
+    # ex : /manager/rule
+    url(r'^rule/$', views.rule, name='rule' ),
+    # ex : /manager/textMining
+    url(r'^rule/textMining/$', views.textMining, name='textMining' ),
+    # ex : /manager/rule/uploadRule
+    url(r'^rule/uploadRule/$', views.uploadRule, name='uploadRule' ),
+    
+    # ex : /manager/meeting
     url(r'^meeting/$', views.meeting, name='meeting' ),
-    # ex : /member/violation
-    url(r'^violation/$', views.violation, name='violation' ),
 
 ]

@@ -7,24 +7,9 @@ from django.views import generic
 from .models import Club, Member
 
 
-def index(request):
-    id = "test123"
-    member = get_object_or_404(Member, memberID=id)
-    return render(request, 'manager/index.html', {'member': member})
-
-def create(request):
-    return render(request, 'manager/create.html', {})
-
-def createExec(request):
-    clubName = request.POST['name']
-    club = Club(name = clubName, founderID = "test")
-    club.save()
-
-    id = "test123"
-    member = get_object_or_404(Member, memberID=id)
-    club.members.add(member)
-    club.save()
-    return HttpResponseRedirect(reverse('manager:index'))
+def index(request, club_id):
+    club = get_object_or_404(Club, pk=club_id)
+    return render(request, 'club/index.html', {'club': club})
 
 
 def member(request):
@@ -79,15 +64,7 @@ def uploadRule(request):
     club.save()
 
     return HttpResponseRedirect(reverse('manager:rule'))
-    
-    
-
 
 
 def meeting(request):
     return render(request, 'manager/meeting.html', {})
-
-
-
-def defaulter(request):
-    return render(request, 'manager/defaulter.html', {})

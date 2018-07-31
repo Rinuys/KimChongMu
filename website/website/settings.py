@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chongmu',
     'login.apps.LoginConfig',
-    'manager',
-    'member',
+    'club',
 ]
 
 MIDDLEWARE = [

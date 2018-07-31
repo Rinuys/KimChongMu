@@ -9,19 +9,31 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-
+card {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 80px;
+}
 
 
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
+h4 {
   font-weight: 500;
   font-family: 'Noto Sans KR', sans-serif;
 }
 
+h5 {
+  font-weight: 400;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+h6 {
+  font-weight: 300;
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
 #introduction {
   padding : 100px
