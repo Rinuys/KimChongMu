@@ -1,5 +1,28 @@
 @import url(../../static/admin/css/fonts.css);
 
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+@import url(../../static/admin/css/fonts.css);
+
 .member {
  font-size: 50px;
  text-shadow: 0 0 10px #666;
@@ -13,8 +36,9 @@
 
 body {
   font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
-
- font-size: 15px;
+  /*height : 50%;*/
+/*  margin-top : -50px;*/
+ /*font-size: 15px;*/
 }
 .menubar{
   background-color : rgb(73, 127, 207);
@@ -57,32 +81,26 @@ body {
 
 
 .form {
- width: 498px;
- height: 300px;
+ width: 600px;/*498px;*/
+ height: 600px;/*300px;*/
  /*border-radius: 25px;*/
  box-shadow :0 0 10px #bbb;
- margin: 200px auto;
+ margin: 100px auto;
  /*margin-left, margin-right : 500px auto;*/
  padding : 100px auto;
- /*background-color : green;*/
+ /*background-color : white;*/
  /*margin: 0;
  padding: 0;*/
  float : center;
  background : rgba(255, 255, 255, 0.2);
-
 }
 
-
 .form2 {
- width: 380px;
- min-width: 320px;
- height: 150px;
+ width: 450px;/*380px;*/
+ min-width: 400px;/*320px;*/
+ height: 450px;/*150px;*/
  margin: 70px auto;
- float : right;
- margin-right : 45px;
-
  /*margin-left : 10px;*/
-
  /*margin-left:20px;*/
  /*background-color : red;*/
 }
@@ -94,7 +112,7 @@ body {
 .form3 label {
  width: 80px;
  height: 20px;
- font-size: 18px;
+ /*font-size: 18px;*/
 
  /*left : -60px;*/
  /*  display: block; */
@@ -102,10 +120,8 @@ body {
  /*background-color :purple;*/
 }
 .form3 input{
-
   height : 30px;
   margin-left : 10px;
-  background : rgba(255, 255, 255, 0.5);
 }
 
 .form4 {
@@ -113,7 +129,15 @@ body {
  padding: 0px 0px 0px 270px;
  /*background-color :yellow;*/
 }
-
+.font1{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size : 30px;
+  font-weight: bold;
+}
+.font2{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size : 20px;
+}
 #wrap {
  width: 600px;
  height: 500px;
@@ -125,41 +149,26 @@ body {
  clear: both;
 }
 
-input[type="submit"] {
- /*float: left;*/
- /*  display:block; */
- height: 50px;
- width : 167px;
- margin-top : 27px;
- margin-left : 10px;
- /*margin-left : 10px;*/
- /*padding-bottom : -5px;*/
- /*left : -5px;*/
- font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
- font-size : 18px;
-/*  background-color: rgb(54, 68, 98);*//*#3c9;*/
-/*  color : rgb(179, 178, 178);*/
- background: rgb(54, 68, 98);/*#FFBB00;*/
- color : rgb(210, 210, 210);
- border-radius: 5px;
- border: none;
- border-radius: 5px;
- /*padding : 20px;*/
- /*font-family: "맑은 고딕";*/
-}
+
 input[type="button"] {
  border-radius: 5px;
  height: 50px;
  background: rgb(54, 68, 98);/*gray;*/
  color : rgb(210, 210, 210);
- border-radius: 5px;
- width: 167px;
+
+ width: 400px;/*167px;*/
  /*font-family:"맑은 고딕";*/
  margin-top:27px;
  margin-right:20px;
  font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
  font-size : 18px;
+
+
 }
 input[type="checkbox"] {
  margin-top:20px;
+}
+.container{
+
+  margin: 0px auto;
 }

@@ -3,7 +3,7 @@
   {% block style %}
     <style>
       #mainNav a { color:rgb(0, 0, 0) !important;}
-    </style>  
+    </style>
   {% endblock %}
 
   {% block menu %}
@@ -32,6 +32,7 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-preview">
+              <br/><br/>
               <a href="{% url 'member:index' %}">
                 <h2 class="post-title">
                   내 클럽
@@ -57,16 +58,7 @@
             <hr>
           </div>
         </div>
+        <br/><br/><br/><br/>
       </div>
       <hr>
-  {% endblock %}
-
-
-
-  {% block all %}
-    {% if not request.session.member_id %}
-      <h2> 로그인이 필요한 페이지입니다. </h2>
-    {% else %}
-      {{ block.super }}
-    {% endif %}
   {% endblock %}
