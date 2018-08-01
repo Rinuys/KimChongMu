@@ -1,7 +1,10 @@
-<!DOCTYPE html>
-<html>
+{% extends "chongmu/base.html" %}
+{% load static %}
+{% block body %}
 <head>
     <meta charset="UTF-8">
+        <link rel = "stylesheet" type="text/css" href="..\static\meta.css">
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
     <script type="text/javascript">
         var userAccount;
@@ -32,13 +35,32 @@
 
 
     </script>
-    <button><a href="/chongmu_login">>김총무로그인하러가기</a></button>
+
 </head>
-<body>
+<body  style="background-image: url('{% static 'chongmu/img/home-bg.jpg' %}?var=1')">
+  <center>
+    <div class="form">
+      <div class="container">
+        <div class="clear"></div><br/><br/>
+        <h1 class="font1">메타마스크에 로그인되어 있을 경우 <br/>메타마스크 앱이 실행됩니다.</h1>
+      </div>
+      <br/><br/>
+      <div class="clear"></div>
+      <div class="clear"></div><br/>
+      <div class="container">
+        <h3 class="font2">앱이 정상적으로 실행될 경우 <br/>김총무 서비스에 로그인하십시오.</h3>
+        <a href="/chongmu_login"><input type="button" value="김총무 로그인하러 가기"></a>
+      </div>
+      <div class="clear"></div><br/>
+      <br/><br/><br/>
+      <div class="container">
+        <h3 class="font2">앱이 정상적으로 실행되지 않을 경우 <br/> 메타마스크 설치 및 로그인을 완료하십시오.</h3>
+        <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank"><input type="button" value="메타마스크 설치 및 로그인하러 가기"></a>
+      </div>
+    </div>
+  </center>
 
 
-
-  
     <div id="output"></div>
 </body>
-</html>
+{% endblock %}
