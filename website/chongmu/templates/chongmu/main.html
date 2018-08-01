@@ -1,171 +1,73 @@
-{% extends "chongmu/logined_base.html" %}
-{% load static %}
- 
+{% extends "chongmu/base.html" %}
+
+  {% block style %}
+    <style>
+      #mainNav a { color:rgb(0, 0, 0) !important;}
+    </style>  
+  {% endblock %}
+
+  {% block menu %}
+    <li class="nav-item">
+      <h5 class="nav-item"> {{request.session.member_id}} 님, 환영합니다. </h5>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'member:index' %}">가입한 클럽</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'manager:index' %}">운영 클럽</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/logout">로그아웃</a>
+    </li>
+  {% endblock %}
+
 
   {% block body %}
       <!-- Main Content -->
-      <section class="bg-light" id="myclub">
-        <div class="container">
-          <div class="row">
-            <h3>가입한 클럽</h3>
-          </div>
+      <div class="container">
+        <div class="row">
           <br>
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="card" style="width: 16rem; height: 16rem;">
-                <a href="{% url 'chongmu:create' %}">
-                <img class="card-img-top" src="{% static 'chongmu/img/plus.png' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                <div class="card-body">
-                  <h5 class="card-subtitle text-center">클럽 생성</h5>
-                </div>
-                </a>
-              </div>
+          <br>
+          <br>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-preview">
+              <a href="{% url 'member:index' %}">
+                <h2 class="post-title">
+                  내 클럽
+                </h2>
+                <h3 class="post-subtitle">
+                  내가 가입한 클럽목록
+                </h3>
+              </a>
+              <p class="post-meta">Member preveiw</p>
             </div>
-
-            <div class="col-sm-3">
-              <div class="card" style="width: 16rem; height: 16rem;" >
-                <a href="{% url 'chongmu:create' %}">
-                <img class="card-img-top" src="{% static 'chongmu/img/uos.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                <div class="card-body">
-                  <h5 class="card-subtitle text-center">서울시립대학교 총학생회 어:울림</h5>
-                </div>
-                </a>
-              </div>
+            <hr>
+            <div class="post-preview">
+              <a href="{% url 'manager:index' %}">
+                <h2 class="post-title">
+                  클럽 관리
+                </h2>
+                <h3 class="post-subtitle">
+                  내가 관리 권한있는 클럽목록
+                </h3>
+              </a>
+              <p class="post-meta">Manager preveiw</p>
             </div>
-
-            <div class="col-sm-3">
-              <div class="card" style="width: 16rem; height: 16rem;" >
-                <a href="{% url 'chongmu:create' %}">
-                <img class="card-img-top" src="{% static 'chongmu/img/london.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                <div class="card-body">
-                  <h5 class="card-subtitle text-center">신촌 영어 스피킹 스터디</h5>
-                </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-sm-3">
-              <div class="card" style="width: 16rem; height: 16rem;">
-                <a href="{% url 'chongmu:create' %}">
-                <img class="card-img-top" src="{% static 'chongmu/img/travel.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                <div class="card-body">
-                  <h5 class="card-subtitle text-center">대학생 연합 여행 동아리 나침반 </h5>
-                </div>
-                </a>
-              </div> 
-            </div>
-
-            {% for club in member.club_set.all%}
-            <div class="col-sm-3">
-                <div class="card" style="width: 16rem; height: 16rem;">
-                  <a href="{% url 'club:index' club.id %}">
-                  <img class="card-img-top" src="{% static 'chongmu/img/example.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                  <div class="card-body">
-                    <h5 class="card-subtitle text-center"> {{club.name}} </h5>
-                  </div>
-                  </a>
-                </div> 
-            </div>
-            {% endfor %}
+            <hr>
           </div>
         </div>
-        
-      </section>
-      
-
-      <section style="background-color:rgb(254, 255, 255)">
-        <div class="container">
-          <div class="row">
-            <h3>모임 일정</h3>
-          </div>
-          <br>
-          <div class="row">
-            <div id='calendar'></div>
-          </div>
-          <br>
-          </div>
-        </div>
-      </section>
-
-      
+      </div>
+      <hr>
   {% endblock %}
 
 
 
-
-
-  {% block calendar %}
-  <script>
-      $(function() {
-      // page is now ready, initialize the calendar...
-  
-      $('#calendar').fullCalendar({
-        eventSources: [
-          {
-            events: [
-              {
-                title  : '총학 회의',
-                start  : '2018-08-02T16:30:00'
-              },
-            
-        
-              {
-                title  : '총학 회의',
-                start  : '2018-08-10T16:30:00'
-              },
-           
-         
-              {
-                title  : '기념관 개관식',
-                start  : '2018-08-30T13:10:00'
-              },
-            ],
-            textColor : "white"
-          },
-
-
-          {
-            events: [ 
-              {
-                title  : '나침반 제주도 여행',
-                start  : '2018-08-19',
-                end    : '2018-08-24'
-              },
-              
-            ],
-            color : '#378006',
-            textColor : "white"
-          },
-
-
-          {
-            events: [
-              {
-                title  : '신촌 스터디',
-                start  : '2018-08-04T14:30:00',
-                allDay : false // will make the time show
-              },
-              {
-                title  : '신촌 스터디',
-                start  : '2018-08-11T14:30:00',
-                allDay : false // will make the time show
-              },
-              {
-                title  : '신촌 스터디',
-                start  : '2018-08-18T14:30:00',
-                allDay : false // will make the time show
-              },
-              {
-                title  : '신촌 스터디 정기모임',
-                start  : '2018-08-25T14:30:00',
-                allDay : false // will make the time show
-              },
-            ],
-            color : '#770006',
-            textColor : "white"
-          }
-        ]
-      })
-      });
-  </script>
+  {% block all %}
+    {% if not request.session.member_id %}
+      <h2> 로그인이 필요한 페이지입니다. </h2>
+    {% else %}
+      {{ block.super }}
+    {% endif %}
   {% endblock %}

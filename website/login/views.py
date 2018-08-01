@@ -13,7 +13,7 @@ from django.http import HttpResponse
 #    return render(request, 'login/make_account.html')
 
 def meta_login(request):
-
+    
     return render(request, 'login/meta.html')
 
 #def chongmu_login(request):
@@ -50,6 +50,7 @@ def made_new_account(request):
 
         new_member.save()
         return redirect('../chongmu_login')
+
 
 
 

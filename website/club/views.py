@@ -4,7 +4,8 @@ from django.urls import reverse
 from django.views import generic
 # Create your views here.
 
-from .models import Club, Member
+from .models import Club, Rule
+from login.models import Member
 
 
 def index(request, club_id):
@@ -12,31 +13,30 @@ def index(request, club_id):
     return render(request, 'club/index.html', {'club': club})
 
 
-def member(request):
-    id = "test123"
-    member = get_object_or_404(Member, memberID=id)
-    return render(request, 'manager/member.html', {'member': member})
+def member(request, club_id):
+    club = get_object_or_404(Club, pk=club_id)
+    return render(request, 'club/member.html', {'club':club})
 
-def addMember(request):
+
+def addMember(request, club_id):
     clubName = request.POST['clubName']
-    memberID = request.POST['memberID']
+    memberID = request.POST['member_id']
 
     club = get_object_or_404(Club, name=clubName)
-    member = get_object_or_404(Member, memberID=memberID)
+    member = get_object_or_404(Member, member_id=memberID)
 
     club.members.add(member)
     club.save()
 
-    return HttpResponseRedirect(reverse('manager:member'))
+    return HttpResponseRedirect(reverse('club:member', args=(club.id,)))
 
 
 
-def rule(request):
-    id = "test123"
-    member = get_object_or_404(Member, memberID=id)
-    return render(request, 'manager/rule.html', {'member': member})
-
-def textMining(request):
+def rule(request, club_id):
+    club = get_object_or_404(Club, pk=club_id)
+    return render(request, 'club/rule.html', {'club':club})
+    
+def textMining(request, club_id):
     clubName = request.POST['clubName']
     club = get_object_or_404(Club, name=clubName)
     rule = request.POST['rule']
@@ -44,12 +44,12 @@ def textMining(request):
     result = False
 
     if result is True:
-        return HttpResponseRedirect(reverse('manager:rule'))
+        return HttpResponseRedirect(reverse('club:rule', args=(club.id,)))
     else:
-        return render(request, 'manager/moreInfo.html', {'club': club})
+        return render(request, 'club/moreInfo.html', {'club': club})
     
 
-def uploadRule(request): 
+def uploadRule(request, club_id): 
     fee = request.POST['fee']
     cycle = request.POST['cycle']
     date = request.POST['date']
@@ -63,8 +63,13 @@ def uploadRule(request):
     club.rule_set.create( ruleID = 2, balance=int(violationFee), numberOfLateness=int(lateness), numberOfAbsence=int(absence))
     club.save()
 
-    return HttpResponseRedirect(reverse('manager:rule'))
+    return HttpResponseRedirect(reverse('club:rule', args=(club.id,)))
 
 
-def meeting(request):
-    return render(request, 'manager/meeting.html', {})
+def meeting(request, club_id):
+    club = get_object_or_404(Club, pk=club_id)
+    return render(request, 'club/meeting.html', {'club':club})
+
+def fee(request, club_id):
+    club = get_object_or_404(Club, pk=club_id)
+    return render(request, 'club/fee.html', {'club':club})

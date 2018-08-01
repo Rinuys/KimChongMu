@@ -1,23 +1,47 @@
-{% extends "chongmu/logined_base.html" %}
+{% extends "club/club_base.html" %}
 {% load static %}
 
 
 
-{% block body %}
+      {% block list %}
+      <a href="{% url 'club:index' club.id %}" class="list-group-item list-group-item-action bg-light text-body">게시판</a>
+        <a href="{% url 'club:member' club.id %}" class="list-group-item list-group-item-action">멤버</a>
+        <a href="{% url 'club:rule' club.id %}" class="list-group-item list-group-item-action">회칙</a>
+        <a href="{% url 'club:meeting' club.id %}" class="list-group-item list-group-item-action">모임</a>
+        <a href="{% url 'club:fee' club.id %}" class="list-group-item list-group-item-action">회비</a>
+      {% endblock %}
+     
+        
+      {% block content %}
+        <div class="row">
+          <div class="card w-100">
+              <div class="card-body">
+                  <div class="form-group">
+                    <textarea class="form-control" rows="8" placeholder="클럽에 남길 글을 입력해주세요"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary float-right">작성</button>
+              </div>
+          </div>
+        </div>
 
-<section style="background-color:rgb(254, 255, 255)">
-  <div class="container">
-    <div class="row">
-      <h3>{{club.name}}</h3>
-    </div>
-    <br>
-    <div class="row">
-      <div id='calendar'></div>
-    </div>
-    <br>
-    </div>
-  </div>
-</section>
+        <div class="row">
+          <div class="card w-100 mt-3">
+            <div class="card-body">
+              <div class="subheading"> 이상엽 </div>
+              <small class="text-muted"> 8월 1일 </small>
+              <h6>With supporting text below as a natural lead-in to additional content.</h6>
+            </div>
+            <div class="card-footer">
+              <h6>With supporting text below as a natural lead-in to additional content. - <i>이상엽</i> <i class="text-muted">8월 1일</i> </h6>
+              <hr>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="작성할 댓글을 입력해 주세요." aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">작성</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-
-{% endblock %}
+      {% endblock %}

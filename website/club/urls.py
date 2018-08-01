@@ -20,19 +20,20 @@ app_name = 'club'
 urlpatterns = [
     # ex : /club/<int:clubid>/
     url(r'^(?P<club_id>\d+)/$', views.index, name='index' ),
-    # ex : /manager/member
-    url(r'^member/$', views.member, name='member' ),
-    # ex : /manager/member/addMember
-    url(r'^create/addMember/$', views.addMember, name='addMember' ),
+    # ex : /club/<int:clubid>/member
+    url(r'^(?P<club_id>\d+)/member/$', views.member, name='member' ),
+    # ex : /club/<int:clubid>/member/addMember
+    url(r'^(?P<club_id>\d+)/member/addMember/$', views.addMember, name='addMember' ),
 
-    # ex : /manager/rule
-    url(r'^rule/$', views.rule, name='rule' ),
-    # ex : /manager/textMining
-    url(r'^rule/textMining/$', views.textMining, name='textMining' ),
-    # ex : /manager/rule/uploadRule
-    url(r'^rule/uploadRule/$', views.uploadRule, name='uploadRule' ),
+    # ex : /club/<int:clubid>/rule
+    url(r'^(?P<club_id>\d+)/rule/$', views.rule, name='rule' ),
+    # ex : /club/<int:clubid>/textMining
+    url(r'^(?P<club_id>\d+)/rule/textMining/$', views.textMining, name='textMining' ),
+    # ex : /club/<int:clubid>/rule/uploadRule
+    url(r'^(?P<club_id>\d+)/rule/uploadRule/$', views.uploadRule, name='uploadRule' ),
     
-    # ex : /manager/meeting
-    url(r'^meeting/$', views.meeting, name='meeting' ),
-
+    # ex : /club/<int:clubid>/meeting
+    url(r'^(?P<club_id>\d+)/meeting/$', views.meeting, name='meeting' ),
+    # ex : /club/<int:clubid>/fee
+    url(r'^(?P<club_id>\d+)/fee/$', views.fee, name='fee' ),
 ]
