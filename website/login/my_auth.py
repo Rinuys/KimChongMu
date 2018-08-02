@@ -13,6 +13,10 @@ class UserBackend(object):#
 
     # 유저가 없는 경우 is_active는 None이므로 True
 
+    def user_can_authenticate(self, user):
+        is_active = getattr(user, 'is_active', None) # 유저가 활성화 되었는지
+        return is_active or is_active is None # 유저가 없는 경우 is_active는 None이므로 True
+
     def get_user(self, user_id):#인증기능에서 필수라ㅓㅅ 그냥만들어놓음
         try:
             return Member.objects.get(pk=member_id)

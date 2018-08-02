@@ -25,7 +25,7 @@ def authentication(request):
         username = request.POST['m_id']
         password = request.POST['m_pass']
     user = UserBackend.authenticate(request, member_id=username, pwd=password) # 직접 만든 custom 인증으로 회원이 맞는지 확인
-    #장고의 기본인증은 usermodel을 default로 가지고 있기 때문에 customer에는 적용이 안되므로 직접 만들었음
+    #장고의 기본인증은 usermodel을 default로 가지고 있기 때문에 member에는 적용이 안되므로 직접 만들었음
 
     if user is not None:
         request.session['member_id'] = username # 인증을 거치고 난 user의 세션 생성
@@ -51,6 +51,8 @@ def made_new_account(request):
         new_member.save()
         return redirect('../chongmu_login')
 
+def test_sol(request):
+    return render(request, 'login/test.html')
 
 
 

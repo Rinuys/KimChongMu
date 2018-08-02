@@ -9,6 +9,6 @@ from django.contrib.auth.decorators import login_required # 로그인해야만 �
 def index(request):
     return render(request, 'chongmu/index.html', {})
 
-@login_required(login_url='/meta_login/')
+#@login_required(login_url='/meta_login/')
 def main(request):
     return render(request, 'chongmu/main.html', {})

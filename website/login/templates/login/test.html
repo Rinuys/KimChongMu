@@ -7,9 +7,14 @@
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!--크립토좀비-->
 
-    <script language="javascript" type="text/javascript" src="web3.min.js"></script><!--web3포함하는 테그-->
-    <script language="javascript" type="text/javascript" src="kimchongmuABI.js"></script><!--json파일로 하는거 아닌가?-->
-    <!--v0.20.6-->
+    <script language="javascript" type="text/javascript" src="web3.js/dist/web3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="kimchongmuABI.js"></script>
+
+<!--    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+-->
+<!--    <script language="javascript" type="text/javascript" src="../../../json/web3.js-0.20.6/dist/web3.js"></script>
+    <script language="javascript" type="text/javascript" src="kimchongmuABI.js"></script>
+-->    <!--v0.20.6-->
 <!--    <script type="text/javascript">
 
 </script>-->
@@ -32,28 +37,22 @@
       }
     }, 100);
     }
+    window.addEventListener('load', function() {
+
+      // Web3가 브라우저에 주입되었는지 확인(Mist/MetaMask)
+      if (typeof web3 !== 'undefined') {
+        // Mist/MetaMask의 프로바이더 사용
+        web3js = new Web3(web3.currentProvider);
+      } else {
+        // 사용자가 Metamask를 설치하지 않은 경우에 대해 처리
+        // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
+      }
+
+      // 이제 자네 앱을 시작하고 web3에 자유롭게 접근할 수 있네:
+      startApp()
+
+      })
     //-------------환경설정
-//    function displayZombies(ids) {
-//      $("#zombies").empty();
-//      for (id of ids) {
-//        // 우리 컨트랙트에서 좀비 상세 정보를 찾아, `zombie` 객체 반환
-//        getZombieDetails(id)
-//        .then(function(zombie) {
-//          // HTML에 변수를 넣기 위해 ES6의 "template literal" 사용
-//          // 각각을 #zombies div에 붙여넣기
-//          $("#zombies").append(`<div class="zombie">
-//            <ul>
-//              <li>Name: ${zombie.name}</li>
-//              <li>DNA: ${zombie.dna}</li>
-//              <li>Level: ${zombie.level}</li>
-//              <li>Wins: ${zombie.winCount}</li>
-//              <li>Losses: ${zombie.lossCount}</li>
-//              <li>Ready Time: ${zombie.readyTime}</li>
-//            </ul>
-//          </div>`);
-//        });
-//      }
-//    }
     function displayMembers(ids) {
       $("#members").empty();//members id가 적힌 html부분에 이 정보를 적용하겠다
       for (id of ids) {
@@ -133,21 +132,7 @@
       return cryptoZombies.methods.getZombiesByOwner(owner).call()
     }
     //--------------
-    window.addEventListener('load', function() {
 
-      // Web3가 브라우저에 주입되었는지 확인(Mist/MetaMask)
-      if (typeof web3 !== 'undefined') {
-        // Mist/MetaMask의 프로바이더 사용
-        web3js = new Web3(web3.currentProvider);
-      } else {
-        // 사용자가 Metamask를 설치하지 않은 경우에 대해 처리
-        // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
-      }
-
-      // 이제 자네 앱을 시작하고 web3에 자유롭게 접근할 수 있네:
-      startApp()
-
-      })
   </script>
 </body>
 </html>
