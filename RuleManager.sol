@@ -1,5 +1,5 @@
 pragma solidity ^0.4.24;
-
+/*
 import "./KimChongMu.sol";
 import "./ClubManager.sol";
 import "./MemberManager.sol";
@@ -123,4 +123,4 @@ contract RuleManager is MemberManager{
         );
     }
     
-}
+}*/
