@@ -25,14 +25,12 @@ urlpatterns = [
     url(r'^$', views.index, name='index' ),
     # ex : /main
     url(r'^main/$', views.main, name='main' ),
-    # ex : /about
-#    url(r'^meta_login/$', login_views.meta, name='meta' ),
+    
+    #url(r'^meta_login/$', login_views.meta, name='meta' ),
     url(r'^meta_login/$', login_views.meta_login, name = 'meta_login1'),
-    #url(r'^chongmu_login/$', auth_views.login, name = 'chongmu_login'),
-    #url(r'^logout/$', auth_views.logout, {'next_page':'/'}, name='logout'),
 
-#    url(r'^chongmu_login', include('login.urls', namespace='chongmu_login1')),
-#    url(r'^chongmu_login', login_views.chongmu_login, name = 'chongmu_login1'),
+    url(r'^create/$', views.create, name='create' ),
+    url(r'^create/exec/$', views.createExec, name='createExec' ),
 
 ]
 

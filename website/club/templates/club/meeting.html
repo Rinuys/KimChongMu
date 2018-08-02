@@ -1,0 +1,102 @@
+{% extends "club/club_base.html" %}
+{% load static %}
+
+{% block list %}
+<a href="{% url 'club:index' club.id %}" class="list-group-item list-group-item-action ">게시판</a>
+<a href="{% url 'club:member' club.id %}" class="list-group-item list-group-item-action ">멤버</a>
+<a href="{% url 'club:rule' club.id %}" class="list-group-item list-group-item-action ">회칙</a>
+<a href="{% url 'club:meeting' club.id %}" class="list-group-item list-group-item-action bg-light text-body">모임</a>
+<a href="{% url 'club:fee' club.id %}" class="list-group-item list-group-item-action">회비</a>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="card w-100">
+    <div class="card-body">
+      <div class="subheading"> 모임 일정 </div>
+      <hr>
+      <div id='calendar'></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block calendar %}
+<script>
+    $(function() {
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+      eventSources: [
+        {
+          events: [
+            {
+              title  : '총학 회의',
+              start  : '2018-08-02T16:30:00'
+            },
+          
+      
+            {
+              title  : '총학 회의',
+              start  : '2018-08-10T16:30:00'
+            },
+         
+       
+            {
+              title  : '기념관 개관식',
+              start  : '2018-08-30T13:10:00'
+            },
+          ],
+          textColor : "white"
+        },
+
+
+        {
+          events: [ 
+            {
+              title  : '나침반 제주도 여행',
+              start  : '2018-08-19',
+              end    : '2018-08-24'
+            },
+            
+          ],
+          color : '#378006',
+          textColor : "white"
+        },
+
+
+        {
+          events: [
+            {
+              title  : '신촌 스터디',
+              start  : '2018-08-04T14:30:00',
+              allDay : false // will make the time show
+            },
+            {
+              title  : '신촌 스터디',
+              start  : '2018-08-11T14:30:00',
+              allDay : false // will make the time show
+            },
+            {
+              title  : '신촌 스터디',
+              start  : '2018-08-18T14:30:00',
+              allDay : false // will make the time show
+            },
+            {
+              title  : '신촌 스터디 정기모임',
+              start  : '2018-08-25T14:30:00',
+              allDay : false // will make the time show
+            },
+          ],
+          color : '#770006',
+          textColor : "white"
+        }
+      ]
+    })
+    });
+</script>
+{% endblock %}

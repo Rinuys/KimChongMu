@@ -23,6 +23,5 @@ urlpatterns = [
 
 #    url(r'^meta_login/', include('login.urls', namespace='meta_login2')),
 #    url(r'^meta_login/', include('django.contrib.auth.urls')),
-    url(r'^manager/', include('manager.urls', namespace='manager')),
-    url(r'^member/', include('member.urls', namespace='member')),
+    url(r'^club/', include('club.urls', namespace='club')),
 ]

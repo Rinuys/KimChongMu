@@ -22,7 +22,13 @@
     <!-- Custom styles for this template -->
     <link href='{% static "chongmu/css/clean-blog.min.css" %}?ver=3' rel="stylesheet">
     <link href='{% static "chongmu/css/chongmu.css" %}?{% now "U" %}' rel="stylesheet">
+    <link href='{% static "chongmu/css/calendar.css" %}?{% now "U" %}' rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <link href='{% static "chongmu/css/fullcalendar.min.css" %}?{% now "U" %}' rel="stylesheet">
+    
+
+
 
     {% block style %}
     {% endblock %}
@@ -97,6 +103,12 @@
 
     <!-- Custom scripts for this template -->
     <script src='{% static "chongmu/js/clean-blog.min.js" %}'></script>
+    <script src='{% static "chongmu/js/moment.js" %}'></script>
+    <script src='{% static "chongmu/js/fullcalendar.min.js" %}'></script>
+
+    {% block calendar %}
+    {% endblock %}
+
 
   </body>
 </html>

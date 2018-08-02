@@ -1,0 +1,51 @@
+{% extends "club/club_base.html" %}
+{% load static %}
+
+{% block list %}
+<a href="{% url 'club:index' club.id %}" class="list-group-item list-group-item-action ">게시판</a>
+<a href="{% url 'club:member' club.id %}" class="list-group-item list-group-item-action ">멤버</a>
+<a href="{% url 'club:rule' club.id %}" class="list-group-item list-group-item-action ">회칙</a>
+<a href="{% url 'club:meeting' club.id %}" class="list-group-item list-group-item-action ">모임</a>
+<a href="{% url 'club:fee' club.id %}" class="list-group-item list-group-item-action bg-light text-body">회비</a>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="subheading"> 회비 납부여부 </div>
+        <hr>
+        <h6>2018년 7월 회비 미납하셨습니다.</h6>
+        <hr>
+        <h6>2018년 8월 회비 미납하셨습니다.</h6>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card w-100 mt-3">
+      <div class="card-body">
+        <div class="subheading"> 회비 사용 내역 </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="card w-100 mt-3">
+      <div class="card-body">
+        <div class="subheading"> 회비 미납자 </div>
+        <hr>
+        <h6>상엽</h6>
+        <hr>
+        <h6>홍석</h6>
+        <hr>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+

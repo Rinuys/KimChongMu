@@ -1,0 +1,37 @@
+{% extends "chongmu/logined_base.html" %}
+{% load static %}
+
+
+
+{% block body %}
+  
+
+<section class="bg-light">
+  <div class="container">
+    <div class="row">
+      <aside class="col-md-3">
+        <div class="card w-100">
+          <img class="card-img-top" src="{% static 'chongmu/img/london.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
+          <div class="card-body">
+            <h4>{{club.name}}</h4>
+          </div>
+        </div>
+        
+        <div class="list-group mt-3">
+          {% block list %}
+          {% endblock %}
+        </div> 
+      </aside>
+
+      <div class="col-md-9">
+        {% block content %}
+
+        {% endblock %}
+
+
+      </div>
+    </div>
+  </div>  
+</section>
+
+{% endblock %}

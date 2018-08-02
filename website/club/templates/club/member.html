@@ -1,0 +1,57 @@
+{% extends "club/club_base.html" %}
+{% load static %}
+
+
+{% block list %}
+<a href="{% url 'club:index' club.id %}" class="list-group-item list-group-item-action ">게시판</a>
+<a href="{% url 'club:member' club.id %}" class="list-group-item list-group-item-action bg-light text-body">멤버</a>
+<a href="{% url 'club:rule' club.id %}" class="list-group-item list-group-item-action">회칙</a>
+<a href="{% url 'club:meeting' club.id %}" class="list-group-item list-group-item-action">모임</a>
+<a href="{% url 'club:fee' club.id %}" class="list-group-item list-group-item-action">회비</a>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="card w-100">
+    <div class="card-body">
+      <div class="subheading"> 멤버추가 </div>
+      <br>
+      <form action="{% url 'club:addMember' club.id %}" method="post">
+          {% csrf_token %}
+          <input type="text" placeholder="추가할 멤버 ID" id="memberID" name="memberID"/>
+          <input type="submit" value="추가" />
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card w-100 mt-3">
+    <div class="card-body">
+      <div class="subheading"> 멤버 </div>
+      <hr>
+      {% for clubMember in club.members.all%}
+        {{clubMember}}
+        <hr> 
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+
+  {% endblock %}
+
+    <!--
+    <script type="text/javascript">
+      $("form").submit(function() { 
+        var myABI;
+        var myContractAddress;
+        var myContract = new web3js.eth.Contract(myABI, myContractAddress);
+        myContract.methods.memberCreate($("#memberID").val(),$("#clubName").val(),2);
+        alert(); return false;
+      });
+    </script>
+    -->

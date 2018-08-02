@@ -1,0 +1,35 @@
+{% extends "chongmu/logined_base.html" %}
+
+    {% block body %}
+    <!-- Main Content -->
+    <section class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+              <form action="{% url 'chongmu:createExec' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label>클럽 이름</label>
+                  <input type="text" class="form-control form-control-lg" name="clubName"  placeholder="클럽 이름 입력">
+                </div>
+                <button type="submit" class="btn btn-info btn-sm">클럽생성</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+
+
+    <!--
+    <script type="text/javascript">
+      $("form").submit(function() { 
+        var myABI;
+        var myContractAddress;
+        var myContract = new web3js.eth.Contract(myABI, myContractAddress);
+        myContract.methods.clubCreate($("#name").val());
+        myContract.methods.memberCreate("test123",$("#name").val(),1);
+        alert(); return false;         
+      });
+    </script>
+    -->
