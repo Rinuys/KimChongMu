@@ -20,20 +20,24 @@ app_name = 'club'
 urlpatterns = [
     # ex : /club/<int:clubid>/
     url(r'^(?P<club_id>\d+)/$', views.index, name='index' ),
+    url(r'^(?P<club_id>\d+)/post/$', views.post, name='post' ),
+    url(r'^(?P<club_id>\d+)/comment/$', views.comment, name='comment' ),
+
     # ex : /club/<int:clubid>/member
     url(r'^(?P<club_id>\d+)/member/$', views.member, name='member' ),
     # ex : /club/<int:clubid>/member/addMember
     url(r'^(?P<club_id>\d+)/member/addMember/$', views.addMember, name='addMember' ),
-
-    # ex : /club/<int:clubid>/rule
-    url(r'^(?P<club_id>\d+)/rule/$', views.rule, name='rule' ),
-    # ex : /club/<int:clubid>/textMining
-    url(r'^(?P<club_id>\d+)/rule/textMining/$', views.textMining, name='textMining' ),
-    # ex : /club/<int:clubid>/rule/uploadRule
-    url(r'^(?P<club_id>\d+)/rule/uploadRule/$', views.uploadRule, name='uploadRule' ),
     
     # ex : /club/<int:clubid>/meeting
     url(r'^(?P<club_id>\d+)/meeting/$', views.meeting, name='meeting' ),
-    # ex : /club/<int:clubid>/fee
-    url(r'^(?P<club_id>\d+)/fee/$', views.fee, name='fee' ),
+    url(r'^(?P<club_id>\d+)/meeting/createMeeting$', views.createMeeting, name='createMeeting' ),
+    url(r'^(?P<club_id>\d+)/meeting/selectMember/(?P<meeting_id>\d+)$', views.selectMember, name='selectMember' ),
+    url(r'^(?P<club_id>\d+)/meeting/inviteMember/(?P<meeting_id>\d+)$', views.inviteMember, name='inviteMember' ),
+
+    url(r'^(?P<club_id>\d+)/meeting/meetingInfo/(?P<meeting_id>\d+)$', views.meetingInfo, name='meetingInfo' ),
+    url(r'^(?P<club_id>\d+)/meeting/meetingAttendance/(?P<meeting_id>\d+)$', views.meetingAttendance, name='meetingAttendance' ),
+    url(r'^(?P<club_id>\d+)/meeting/checkAttendance/(?P<meeting_id>\d+)$', views.checkAttendance, name='checkAttendance' ),
+
+    url(r'/acceptInvitation/$', views.acceptInvitation, name='acceptInvitation' ),
+
 ]

@@ -5,9 +5,7 @@
 {% block list %}
 <a href="{% url 'club:index' club.id %}" class="list-group-item list-group-item-action ">게시판</a>
 <a href="{% url 'club:member' club.id %}" class="list-group-item list-group-item-action bg-light text-body">멤버</a>
-<a href="{% url 'club:rule' club.id %}" class="list-group-item list-group-item-action">회칙</a>
 <a href="{% url 'club:meeting' club.id %}" class="list-group-item list-group-item-action">모임</a>
-<a href="{% url 'club:fee' club.id %}" class="list-group-item list-group-item-action">회비</a>
 {% endblock %}
 
 
@@ -16,11 +14,15 @@
   <div class="card w-100">
     <div class="card-body">
       <div class="subheading"> 멤버추가 </div>
-      <br>
+      <hr>
       <form action="{% url 'club:addMember' club.id %}" method="post">
-          {% csrf_token %}
-          <input type="text" placeholder="추가할 멤버 ID" id="memberID" name="memberID"/>
-          <input type="submit" value="추가" />
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="추가할 멤버 ID" name="member_id" aria-describedby="button-addon2"/>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-primary float-right">작성</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -32,7 +34,7 @@
       <div class="subheading"> 멤버 </div>
       <hr>
       {% for clubMember in club.members.all%}
-        {{clubMember}}
+        <h6>{{clubMember}}</h6>
         <hr> 
       {% endfor %}
     </div>
