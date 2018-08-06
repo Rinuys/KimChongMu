@@ -11,11 +11,11 @@ from club.models import Club
 def index(request):
     return render(request, 'chongmu/index.html', {})
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 #@login_required(login_url='/meta_login/')
-=======
+#=======
 
->>>>>>> b58bbea9466aa08a62a4401c62f693bbcb6e1ad6
+#>>>>>>> b58bbea9466aa08a62a4401c62f693bbcb6e1ad6
 def main(request):
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     return render(request, 'chongmu/main.html', {'member':member})
