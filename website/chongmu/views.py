@@ -12,11 +12,6 @@ from club.views import getInvitationList, makeJson
 def index(request):
     return render(request, 'chongmu/index.html', {})
 
-<<<<<<< HEAD
-#@login_required(login_url='/meta_login/')
-=======
-
->>>>>>> b58bbea9466aa08a62a4401c62f693bbcb6e1ad6
 def main(request):
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     meetingList = getInvitationList(request)
