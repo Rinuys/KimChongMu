@@ -105,6 +105,11 @@
     <script src='{% static "chongmu/js/clean-blog.min.js" %}'></script>
     <script src='{% static "chongmu/js/moment.js" %}'></script>
     <script src='{% static "chongmu/js/fullcalendar.min.js" %}'></script>
+    <script>
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
+    </script>
 
     {% block calendar %}
     {% endblock %}

@@ -1,0 +1,43 @@
+{% extends "club/club_base.html" %} 
+{% load static %} 
+{% block list %}
+  <a href="{% url 'club:index' club.id %}" class="list-group-item list-group-item-action ">게시판</a>
+  <a href="{% url 'club:member' club.id %}" class="list-group-item list-group-item-action ">멤버</a>
+  <a href="{% url 'club:meeting' club.id %}" class="list-group-item list-group-item-action bg-light text-body">모임</a>
+{% endblock %} 
+
+{% block content %}
+  <div class="row">
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="subheading"> 출석체크 </div>
+          <hr>
+          <form action="{% url 'club:checkAttendance' club.id meeting.id %}" method="post">
+            {% csrf_token %}
+            {% for member in meeting.members.all %}
+              <div class="form-row">
+                <label class= "col-sm-2 col-form-label text-center" for="attendselect"> {{member.member_name}} </label>
+                <div class="btn-group btn-group-toggle col-sm-10" data-toggle="buttons">
+                  <label class="btn btn-outline-primary active">
+                    <input type="radio" name="{{member.member_id}}" value="attendance" autocomplete="off" checked> 출석
+                  </label>
+                  <label class="btn btn-outline-primary">
+                    <input type="radio" name="{{member.member_id}}" value="lateness" autocomplete="off"> 지각
+                  </label>
+                  <label class="btn btn-outline-primary">
+                    <input type="radio" name="{{member.member_id}}" value="absence" autocomplete="off"> 결석
+                  </label>
+                </div>
+              </div>
+              <hr>
+            {% endfor %}
+            <button type="submit" class="btn btn-outline-secondary"> 완료 </button>
+          </form>
+        
+        
+
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

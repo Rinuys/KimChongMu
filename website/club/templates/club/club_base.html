@@ -11,7 +11,13 @@
     <div class="row">
       <aside class="col-md-3">
         <div class="card w-100">
-          <img class="card-img-top" src="{% static 'chongmu/img/london.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
+            {% if club.photo %}
+            <img class="card-img-top" src="{{club.photo.url}}" alt="Card image cap" style="height: 11rem;">
+            {% else %}
+            <img class="card-img-top" src="{% static 'chongmu/img/example.jpg' %}" alt="Card image cap" style="height: 11rem;">
+            
+            {% endif %}
+          
           <div class="card-body">
             <h4>{{club.name}}</h4>
           </div>

@@ -1,4 +1,5 @@
 {% extends "chongmu/base.html" %}
+{% load static %}
 
   {% block style %}
     <style>
@@ -9,11 +10,50 @@
   {% endblock %}
 
   {% block menu %}
+
     <li class="nav-item">
-      <h6 class="nav-link"> {{request.session.member_id}} 님, 환영합니다. </h6>
+      <h6 class="nav-link" style="padding-right:40px"> {{request.session.member_id}} 님, 환영합니다. </h6>
     </li>
+
     <li class="nav-item">
-      <a class="nav-link" href="/logout">My Page</a>
+      
+    </li>
+    
+    <li class="dropdown">
+      <button type="button" class="btn btn-link mybtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {% if meetingList %}
+            <img src="{% static 'chongmu/img/alarm_new.png' %}" style="height:20px">
+          {% else %}
+            <img src="{% static 'chongmu/img/alarm.png' %}" style="height:20px">
+          {% endif %}
+      </button>
+    
+      <ul class="dropdown-menu dropdown-menu-right p-4 text-muted">
+        <div>
+          <strong>쪽지함</strong>
+        </div>
+        <div class="dropdown-divider"></div>
+        {% for meeting in meetingList %}
+          <div style="width:30rem;">
+              {{ meeting.0 }}클럽의 {{ meeting.1 }} 모임에서 {{request.session.member_id}}님을 초대하셨습니다.
+          </div>
+          <div>
+            <form action="{% url 'club:acceptInvitation' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="meetingID" value="{{ meeting.2 }}"> 
+              <button type="submit" name="accept" value = "yes" class="btn mybtn">수락</button>
+              <button type="submit" name="accept" value = "no" class="btn mybtn">거절</button>
+            </form>
+          </div>
+          <div class="dropdown-divider"></div>
+        {% endfor %}
+      </ul>
+  </li>
+
+
+
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'chongmu:mypage' %}">My Page</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/logout">로그아웃</a>

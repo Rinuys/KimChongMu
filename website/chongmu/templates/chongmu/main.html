@@ -22,44 +22,16 @@
               </div>
             </div>
 
-            <div class="col-sm-3">
-              <div class="card" style="width: 16rem; height: 16rem;" >
-                <a href="{% url 'chongmu:create' %}">
-                <img class="card-img-top" src="{% static 'chongmu/img/uos.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                <div class="card-body">
-                  <h5 class="card-subtitle text-center">서울시립대학교 총학생회 어:울림</h5>
-                </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-sm-3">
-              <div class="card" style="width: 16rem; height: 16rem;" >
-                <a href="{% url 'chongmu:create' %}">
-                <img class="card-img-top" src="{% static 'chongmu/img/london.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                <div class="card-body">
-                  <h5 class="card-subtitle text-center">신촌 영어 스피킹 스터디</h5>
-                </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-sm-3">
-              <div class="card" style="width: 16rem; height: 16rem;">
-                <a href="{% url 'chongmu:create' %}">
-                <img class="card-img-top" src="{% static 'chongmu/img/travel.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
-                <div class="card-body">
-                  <h5 class="card-subtitle text-center">대학생 연합 여행 동아리 나침반 </h5>
-                </div>
-                </a>
-              </div> 
-            </div>
-
             {% for club in member.club_set.all%}
             <div class="col-sm-3">
                 <div class="card" style="width: 16rem; height: 16rem;">
                   <a href="{% url 'club:index' club.id %}">
-                  <img class="card-img-top" src="{% static 'chongmu/img/example.jpg' %}?var=1" alt="Card image cap" style="height: 11rem;">
+                  {% if club.photo %}
+                  <img class="card-img-top" src="{{club.photo.url}}" alt="Card image cap" style="height: 11rem;">
+                  {% else %}
+                  <img class="card-img-top" src="{% static 'chongmu/img/example.jpg' %}" alt="Card image cap" style="height: 11rem;">
+                  
+                  {% endif %}
                   <div class="card-body">
                     <h5 class="card-subtitle text-center"> {{club.name}} </h5>
                   </div>
@@ -94,78 +66,31 @@
 
 
 
+
   {% block calendar %}
   <script>
-      $(function() {
+    $(function () {
       // page is now ready, initialize the calendar...
-  
+      
+      
+      var jsonTextArray = new Array();
+      var clubMeetingArray = new Array();
+
+      jsonText = "{{ jsonArray|escapejs }}"
+      console.log(jsonText)
+      clubMeetingArray = JSON.parse(jsonText)
+      console.log(clubMeetingArray)
+
+
       $('#calendar').fullCalendar({
-        eventSources: [
-          {
-            events: [
-              {
-                title  : '총학 회의',
-                start  : '2018-08-02T16:30:00'
-              },
-            
-        
-              {
-                title  : '총학 회의',
-                start  : '2018-08-10T16:30:00'
-              },
-           
-         
-              {
-                title  : '기념관 개관식',
-                start  : '2018-08-30T13:10:00'
-              },
-            ],
-            textColor : "white"
-          },
-
-
-          {
-            events: [ 
-              {
-                title  : '나침반 제주도 여행',
-                start  : '2018-08-19',
-                end    : '2018-08-24'
-              },
-              
-            ],
-            color : '#378006',
-            textColor : "white"
-          },
-
-
-          {
-            events: [
-              {
-                title  : '신촌 스터디',
-                start  : '2018-08-04T14:30:00',
-                allDay : false // will make the time show
-              },
-              {
-                title  : '신촌 스터디',
-                start  : '2018-08-11T14:30:00',
-                allDay : false // will make the time show
-              },
-              {
-                title  : '신촌 스터디',
-                start  : '2018-08-18T14:30:00',
-                allDay : false // will make the time show
-              },
-              {
-                title  : '신촌 스터디 정기모임',
-                start  : '2018-08-25T14:30:00',
-                allDay : false // will make the time show
-              },
-            ],
-            color : '#770006',
-            textColor : "white"
+        eventSources: clubMeetingArray,
+        eventClick: function (event) {
+          if (event.url) {
+            window.open(event.url, '_self');
+            return false;
           }
-        ]
+        }
       })
-      });
+    });
   </script>
-  {% endblock %}
+{% endblock %}

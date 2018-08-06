@@ -32,6 +32,8 @@ urlpatterns = [
     url(r'^create/$', views.create, name='create' ),
     url(r'^create/exec/$', views.createExec, name='createExec' ),
 
+    url(r'^mypage/$', views.mypage, name='mypage' ),
+
 ]
 
 

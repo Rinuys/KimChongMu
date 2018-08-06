@@ -6,13 +6,23 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-              <form action="{% url 'chongmu:createExec' %}" method="post">
+              <form action="{% url 'chongmu:createExec' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                   <label>클럽 이름</label>
                   <input type="text" class="form-control form-control-lg" name="clubName"  placeholder="클럽 이름 입력">
                 </div>
+                
+                클럽 대표 사진
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="clubPhoto"   id="clubPhoto">
+                  <label class="custom-file-label text-muted" for="clubPhoto">클럽 대표 사진 업로드</label>
+                </div>
+                <a href="#" style="visibility: hidden;">l<br><a>
                 <button type="submit" class="btn btn-info btn-sm">클럽생성</button>
+                
+
+                
               </form>
           </div>
         </div>
