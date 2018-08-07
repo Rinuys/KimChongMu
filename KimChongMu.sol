@@ -89,4 +89,21 @@ contract KimChongMu{                // KimChongMu contract
         return (i != numberOfClub && numberOfClub != 0); // 존재하면 true, 없으면 false
     }
     
+    function getNumberOfClub() 
+        public 
+        view 
+        returns(uint256)
+    {
+        return numberOfClub;
+    }
+    
+    function getNumberOfMember()
+        public
+        view
+        returns(uint256)
+    {
+        return numberOfMember;
+    }
+    
+    
 }

@@ -34,6 +34,20 @@ var kimchongmuABI = [
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "getNumberOfMember",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "_clubId",
@@ -194,6 +208,20 @@ var kimchongmuABI = [
 			{
 				"name": "numberOfClub",
 				"type": "uint32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getNumberOfClub",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
