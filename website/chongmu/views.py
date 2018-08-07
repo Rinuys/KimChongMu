@@ -12,6 +12,7 @@ from club.views import getInvitationList, makeJson
 def index(request):
     return render(request, 'chongmu/index.html', {})
 
+<<<<<<< HEAD
 
 #<<<<<<< HEAD
 #@login_required(login_url='/meta_login/')
@@ -19,6 +20,8 @@ def index(request):
 
 #>>>>>>> b58bbea9466aa08a62a4401c62f693bbcb6e1ad6
 
+=======
+>>>>>>> c75b3c0c349798d01c97f2863acb4d46a5f67afb
 def main(request):
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     meetingList = getInvitationList(request)
@@ -46,8 +49,11 @@ def createExec(request):
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     club.members.add(member)
     club.save()
+<<<<<<< HEAD
 
     return HttpResponseRedirect(reverse('club:index', args=(club.id,)))
+=======
+>>>>>>> c75b3c0c349798d01c97f2863acb4d46a5f67afb
 
     return HttpResponseRedirect(reverse('club:index', args=(club.id,)))
 
@@ -55,3 +61,9 @@ def createExec(request):
 def mypage(request):
     meetingList = getInvitationList(request)
     return render(request, 'chongmu/mypage.html', {'meetingList':meetingList})
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> c75b3c0c349798d01c97f2863acb4d46a5f67afb

@@ -6,7 +6,7 @@ contract KimChongMu{                // KimChongMu contract
         address[] member;
         mapping(address => uint8) authority;
         uint32 numberOfMember;      // 동아리 멤버의 수
-        Meeting[] meeting;
+        mapping(uint8 => Meeting) meeting;
         uint8 numberOfMeeting;
         uint256 balance;            // 동아리의 회비
     }
@@ -72,11 +72,11 @@ contract KimChongMu{                // KimChongMu contract
                 break;
             }
         }
-        return (i != numberOfMember);                          // 있으면 true, 없으면 false
+        return (i != numberOfMember && numberOfMember != 0);                          // 있으면 true, 없으면 false
     }
     
     function isClubIdExist(string _clubId) 
-        internal 
+        public 
         view 
         returns(bool)
     {                               // 동아리 id가 존재하는지 검사하는 함수
@@ -86,7 +86,24 @@ contract KimChongMu{                // KimChongMu contract
                 break;
             }
         }
-        return (i != numberOfClub); // 존재하면 true, 없으면 false
+        return (i != numberOfClub && numberOfClub != 0); // 존재하면 true, 없으면 false
     }
+    
+    function getNumberOfClub() 
+        public 
+        view 
+        returns(uint256)
+    {
+        return numberOfClub;
+    }
+    
+    function getNumberOfMember()
+        public
+        view
+        returns(uint256)
+    {
+        return numberOfMember;
+    }
+    
     
 }
