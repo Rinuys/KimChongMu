@@ -12,25 +12,24 @@ from club.views import getInvitationList, makeJson
 def index(request):
     return render(request, 'chongmu/index.html', {})
 
-<<<<<<< HEAD
+
 #<<<<<<< HEAD
 #@login_required(login_url='/meta_login/')
 #=======
 
 #>>>>>>> b58bbea9466aa08a62a4401c62f693bbcb6e1ad6
-=======
->>>>>>> b050b66be1596b2cf8d9879a859fcb36d5b113bd
+
 def main(request):
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     meetingList = getInvitationList(request)
-    
-    
+
+
     jsonArray = "["
     for club in member.club_set.all():
         jsonArray = jsonArray + makeJson(club, member) + ','
     jsonArray = jsonArray.rstrip(',')
     jsonArray = jsonArray+"]"
-    
+
     return render(request, 'chongmu/main.html', {'member':member, 'meetingList':meetingList, 'jsonArray':jsonArray})
 
 
@@ -47,9 +46,8 @@ def createExec(request):
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     club.members.add(member)
     club.save()
-<<<<<<< HEAD
+
     return HttpResponseRedirect(reverse('club:index', args=(club.id,)))
-=======
 
     return HttpResponseRedirect(reverse('club:index', args=(club.id,)))
 
@@ -57,7 +55,3 @@ def createExec(request):
 def mypage(request):
     meetingList = getInvitationList(request)
     return render(request, 'chongmu/mypage.html', {'meetingList':meetingList})
-
-
-
->>>>>>> b050b66be1596b2cf8d9879a859fcb36d5b113bd

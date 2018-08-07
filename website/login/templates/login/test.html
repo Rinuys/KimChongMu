@@ -8,8 +8,8 @@
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!--크립토좀비-->
 
-    <script language="javascript" type="text/javascript" src="{% static 'web3.min.js' %}"></script>
-    <script language="javascript" type="text/javascript" src="{% static 'kimchongmuABI.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'web3.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'kimchongmu_ABI.js' %}"></script>
 
 <!--    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 -->
@@ -25,45 +25,89 @@
 안녕하세요 <메타마스크의 Web3 프로바이더 사용하기>
   <script>//메타마스크는 web3라는 전역 자바스크립트 객체를 통해 브라우저에 Web3 프로바이더를 주입하네.그러니 자네 앱에서는 web3가 존재하는지 확인하고, 만약 존재한다면 web3.currentProvider를 프로바이더로서 사용하면 되지. 여기 메타마스크에서 제공하는 템플릿 코드가 있네. 사용자가 메타마스크를 설치했는지 확인하고 설치가 안 된 경우 우리 앱을 사용하려면 메타마스크를 설치해야 한다고 알려주는 것이지:
     var kimchongmus;//인스턴스화 된 컨트렉트 저장하는변수
-    var userAccount;
+    var kimchongmuAddress = "0x145029b21c581f47c66522e4a55ca37b9eb9deae";
+
     function startApp(){
-      var kimchongmuAddress = "0xb0043332b81cbe2adf13457debfa649a391775d7";
-      kimchongmus = web3.eth.contract(kimchongmuABI).at(kimchongmuAddress);
+
+      window.addEventListener('load', function() {
+
+        // Web3가 브라우저에 주입되었는지 확인(Mist/MetaMask)
+        if (typeof web3 !== 'undefined') {//!=
+          // Mist/MetaMask의 프로바이더 사용
+          web3 = new Web3(web3.currentProvider);
+        } else {
+          // 사용자가 Metamask를 설치하지 않은 경우에 대해 처리
+          // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
+        }
+      });
+      var myContract = web3.eth.contract(kimchongmuABI);
+      window.contractInstance = web3.eth.contract(kimchongmuABI).at(kimchongmuAddress);
+
+      web3.eth.getAccounts(function(error, result){
+                if (error) return console.error(error);
+                 window.web3.eth.defaultAccount = result[0];
+               });
       var accountInterval = setInterval(function() {
       // 계정이 바뀌었는지 확인
-      console.log(userAccount);
-      if (web3.eth.accounts[0] !== userAccount) {
-        userAccount = web3.eth.accounts[0];
 
-        // 새 계정에 대한 UI로 업데이트하기 위한 함수 호출
-    //    getZombiesByOwner(userAccount)
-    //    .then(displayZombies);
-      }
+      web3.eth.getAccounts(function(error, result){
+                if (error) return console.error(error);
+                if (window.web3.eth.defaultAccount !== result[0]) {
+                  window.web3.eth.defaultAccount = result[0];
+                }
+               });
     }, 100);
 
-    kimchongmus.clubCreate("kim_clubId", function(result){
-      console.log("성공했어");
-      return result;
-    }
-    );
-        clubCreate("kim");
-        getClubInfo("kim");
-    }
-    window.addEventListener('load', function() {
+    //culbCreate(clubId);
+    //memberCreate();//본인의 주소가 멤버아이디로 사용되기 때문에 매개변수 필요x
+    //getClubInfo(clubId);
+    getClub('kim');
+    window.contractInstance.numberOfClub(function(error, result){
+      if (error) return console.error(error);
+      else console.log(JSON.stringify(result));
+    });
+  }
 
-      // Web3가 브라우저에 주입되었는지 확인(Mist/MetaMask)
-      if (typeof web3 !== 'undefined') {
-        // Mist/MetaMask의 프로바이더 사용
-        web3js = new Web3(web3.currentProvider);
-      } else {
-        // 사용자가 Metamask를 설치하지 않은 경우에 대해 처리
-        // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
-      }
+  //클럽 생성 함수
+  function clubCreate(_clubId){
+    web3.eth.getAccounts(function(error, result){//set함수는 getaccount필요? & function으로 뒤에 출력하는거 써줘야한다
+      if (error) return console.error(error);
+      else window.contractInstance.clubCreate(_culbId, function(error, result){
+        if(!error)
+          console.log(JSON.stringify(result));
+        else
+          console.error(error);
+      });
+    });
+  }
 
-      // 이제 자네 앱을 시작하고 web3에 자유롭게 접근할 수 있네:
-      startApp()
+  //멤버 생성 함수
+  function memberCreate(){
+    web3.eth.getAccounts(function(error, result){
+      if (error) return console.error(error);
+      else window.contractInstance.memberCreate(function(error, result){
+        if (error) return console.error(error);
+        else console.log(JSON.stringify(result));
+      });
+    });
+  }
 
-      })
+  //클럽 정보 불러오기 함수
+  function getClubInfo(_clubId){
+    window.contractInstance.getClubInfo(_clubId, function(error, result){
+      if (error) return console.error(error);
+      else console.log(JSON.stringify(result));//get은 보여주는함수 보여줘야만한다
+    });
+  }
+
+  function getClub(_clubId){
+    window.contractInstance.club(_clubId, function(error, result){
+      if (error) return console.error(error);
+      else console.log(JSON.stringify(result));
+    });
+  }
+
+  startApp();
     //-------------환경설정
 
 
@@ -144,12 +188,12 @@
 //    function getZombiesByOwner(owner) {
 //      return cryptoZombies.methods.getZombiesByOwner(owner).call()
 //    }
-    function clubCreate(clubId){
-      return kimchongmus.methods.clubCreate(clubId).call()
-    }
-    function getClubInfo(clubId){
-      return kimchongmus.methods.getClubInfo(clubId).call()
-    }
+//    function clubCreate(clubId){
+//      return kimchongmus.methods.clubCreate(clubId)
+//    }
+//    function getClubInfo(clubId){
+//      return kimchongmus.methods.getClubInfo(clubId).call()
+//    }
     //--------------
 
   </script>
