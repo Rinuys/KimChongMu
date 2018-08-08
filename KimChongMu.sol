@@ -6,7 +6,7 @@ contract KimChongMu{                // KimChongMu contract
         address[] member;
         mapping(address => uint8) authority;
         uint32 numberOfMember;      // 동아리 멤버의 수
-        mapping(uint8 => Meeting) meeting;
+        bytes32[] meeting;
         uint8 numberOfMeeting;
         uint256 balance;            // 동아리의 회비
     }
@@ -14,23 +14,21 @@ contract KimChongMu{                // KimChongMu contract
         address id;                 // 멤버의 id(바이트32)
         string[] club;
         uint32 numberOfClub;        // club
+        bytes32[] meeting;
+        uint8 numberOfMeeting;
     }
     struct Meeting{
+        string id;
+        string clubId;
         uint256 time;
         uint256 balance;
         mapping(address => MemberState) memberState;
+        address[] member;
+        uint32 numberOfMember;
     }
     struct MemberState{
         uint256 stake;
         uint8 state;
-    }
-    
-    struct Rule{                    // 회칙을 저장할 구조체
-        uint8 ruleId;               // 회칙의 id (1:회비, 2:출결)
-        uint8 numberOfLateness;     // 1:X      /2:지각수
-        uint8 numberOfAbsence;      // 1:X      /2:결석수
-        uint256 balance;            // 1:회비   /2:벌금
-        uint time;                  // 1:주기   /2:모임시간
     }
     
     mapping(bytes32 => Club) public club;   // club들을 저장하는 매핑변수
@@ -40,6 +38,10 @@ contract KimChongMu{                // KimChongMu contract
     mapping(address => Member) public member;
     address[] internal memberIdArr;
     uint256 internal numberOfMember = 0;
+    
+    mapping(bytes32 => Meeting) public meeting;
+    bytes32[] internal meetingIdArr;
+    uint256 internal numberOfMeeting;
     
     uint8 internal numberOfRule = 2;        // 사용 가능한 회칙의 개수 
     
@@ -58,7 +60,7 @@ contract KimChongMu{                // KimChongMu contract
         view 
         returns(uint)
     {                                       // 전체 balance를 출력
-        return this.balance;
+        return address(this).balance;
     }
     
     function isMemberIdExist(address _memberId)              // 멤버의 아이디가 있는지 체크하는 함수
@@ -89,6 +91,21 @@ contract KimChongMu{                // KimChongMu contract
         return (i != numberOfClub && numberOfClub != 0); // 존재하면 true, 없으면 false
     }
     
+    function isMeetingIdExist(string _clubId, string _meetingId, uint256 _time)
+        public
+        view
+        returns(bool)
+    {
+        bytes32 tempId = keccak256(_clubId, _meetingId, _time);
+        uint i;
+        for(i = 0 ; i < numberOfMeeting ; i++){
+            if(meetingIdArr[i] == tempId){
+                break;
+            }
+        }
+        return (i != numberOfMeeting && numberOfMeeting != 0);
+    }
+    
     function getNumberOfClub() 
         public 
         view 
@@ -105,5 +122,12 @@ contract KimChongMu{                // KimChongMu contract
         return numberOfMember;
     }
     
+    function getNumberOfMeeting()
+        public
+        view
+        returns(uint256)
+    {
+        return numberOfMeeting;
+    }
     
 }

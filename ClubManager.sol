@@ -2,8 +2,8 @@ pragma solidity ^0.4.24;
 import "./MemberManager.sol";
 
 contract ClubManager is MemberManager{ // 동아리 관리에 필요한 Contract
-    event ClubCreated(string _clubId, address _memberId);  // 동아리를 만들면 부르는 event
-    event AddMember(string _clubId, address _memberId);
+    event clubCreated(string _clubId, address _memberId);  // 동아리를 만들면 부르는 event
+    event memberAddedInClub(string _clubId, address _memberId);
     
     function clubCreate(string _clubId) 
         public
@@ -18,13 +18,14 @@ contract ClubManager is MemberManager{ // 동아리 관리에 필요한 Contract
         club[tempId].numberOfMember = 1;    // 
         club[tempId].authority[msg.sender] = 1;
         club[tempId].balance = 0;           // 동아리의 지분을 0으로 초기화
+        club[tempId].numberOfMeeting = 0;
         member[msg.sender].club.push(_clubId);
         member[msg.sender].numberOfClub++;
         
         clubIdArr.push(_clubId);    // clubId배열에 추가 
         numberOfClub++;             // 동아리의 수를 증가
         
-        emit ClubCreated(_clubId, msg.sender);  // event 호출
+        emit clubCreated(_clubId, msg.sender);  // event 호출
     }
     
     function getClubBalance(string _clubId) 
@@ -45,7 +46,7 @@ contract ClubManager is MemberManager{ // 동아리 관리에 필요한 Contract
         return(temp.numberOfMember, temp.balance, temp.member);
     }
     
-    function addMember(string _clubId, address _memberId, uint8 _authority) 
+    function addMemberInClub(string _clubId, address _memberId, uint8 _authority) 
         public
     {
         bytes32 tempId = stringToBytes32(_clubId);
@@ -58,6 +59,6 @@ contract ClubManager is MemberManager{ // 동아리 관리에 필요한 Contract
         member[_memberId].club.push(_clubId);
         member[_memberId].numberOfClub++;
         
-        emit AddMember(_clubId, _memberId);
+        emit memberAddedInClub(_clubId, _memberId);
     }
 }

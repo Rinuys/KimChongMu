@@ -12,6 +12,7 @@ contract MemberManager is KimChongMu{                  // 동아리 멤버를 �
         Member memory temp;                                                 // temp 멤버를 생성
         temp.id = msg.sender;                                    // id를 변환 후 입력
         temp.numberOfClub = 0;
+        temp.numberOfMeeting = 0;
         member[msg.sender] = temp;
         memberIdArr.push(msg.sender);
         numberOfMember++;
