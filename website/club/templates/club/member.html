@@ -15,10 +15,10 @@
     <div class="card-body">
       <div class="subheading"> 멤버추가 </div>
       <hr>
-      <form action="{% url 'club:addMember' club.id %}" method="post">
+      <form action="{% url 'club:addMember' club.id %}" method="post" id="addMember">
         {% csrf_token %}
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="추가할 멤버 ID" name="member_id" aria-describedby="button-addon2"/>
+          <input type="text" class="form-control" placeholder="추가할 멤버 ID" name="member_id" id="memberID" aria-describedby="button-addon2"/>
           <div class="input-group-append">
             <button type="submit" class="btn btn-outline-primary float-right">작성</button>
           </div>
@@ -46,14 +46,53 @@
 
   {% endblock %}
 
-    <!--
-    <script type="text/javascript">
-      $("form").submit(function() { 
-        var myABI;
-        var myContractAddress;
-        var myContract = new web3js.eth.Contract(myABI, myContractAddress);
-        myContract.methods.memberCreate($("#memberID").val(),$("#clubName").val(),2);
-        alert(); return false;
-      });
-    </script>
-    -->
+
+
+  {% block js %}
+
+  <script src='{% static "chongmu/ABI(180807).js" %}'></script>
+  <script type="text/javascript">
+
+    $(function () {
+
+        if (typeof web3 !== 'undefined') {
+          web3 = new Web3(web3.currentProvider);
+        } else {
+          // set the provider you want from Web3.providers
+          console.log("메타마스크를 설치해 주세요.");
+        }
+
+        
+
+      }
+    )
+
+    var firstCall = true;
+    $("#addMember").submit(function () {
+      if(firstCall){
+
+          var myContractAddress = '0x145029b21c581f47c66522e4a55ca37b9eb9deae';
+          var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
+          var myAddress = web3.eth.accounts[0];
+
+          var clubID = "{{club.name}}";
+          var memberID = myAddress;
+          var authority = 2;
+
+          
+          myContract.addMember.sendTransaction(clubID, memberID, authority, { from: myAddress }, function (err, transactionHash) {
+              if (!err){
+                console.log(transactionHash + " success");
+                firstCall= false;
+                $("#addMember").submit();
+              }
+            }
+          );
+          return false;
+      }else{
+        return true;
+      }
+    });
+
+  </script>
+{% endblock %}

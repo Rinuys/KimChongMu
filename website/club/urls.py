@@ -35,6 +35,10 @@ urlpatterns = [
     url(r'^(?P<club_id>\d+)/meeting/inviteMember/(?P<meeting_id>\d+)$', views.inviteMember, name='inviteMember' ),
 
     url(r'^(?P<club_id>\d+)/meeting/meetingInfo/(?P<meeting_id>\d+)$', views.meetingInfo, name='meetingInfo' ),
+    url(r'^(?P<club_id>\d+)/meeting/confirmMeeting/(?P<meeting_id>\d+)$', views.confirmMeeting, name='confirmMeeting' ),
+    url(r'^(?P<club_id>\d+)/meeting/payFee/(?P<meeting_id>\d+)$', views.payFee, name='payFee' ),
+
+
     url(r'^(?P<club_id>\d+)/meeting/meetingAttendance/(?P<meeting_id>\d+)$', views.meetingAttendance, name='meetingAttendance' ),
     url(r'^(?P<club_id>\d+)/meeting/checkAttendance/(?P<meeting_id>\d+)$', views.checkAttendance, name='checkAttendance' ),
 
