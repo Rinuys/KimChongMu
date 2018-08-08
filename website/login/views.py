@@ -45,8 +45,9 @@ def made_new_account(request):
         member_id = request.POST['m_id']
         member_name = request.POST['m_name']
         pwd = request.POST['m_pass']
+        meta_address = request.POST['meta_address']
 
-        new_member=Member.objects.create(member_id=member_id, member_name=member_name, pwd=pwd)
+        new_member=Member.objects.create(member_id=member_id, member_name=member_name, pwd=pwd, meta_address=meta_address)
 
         new_member.save()
         return redirect('../chongmu_login')

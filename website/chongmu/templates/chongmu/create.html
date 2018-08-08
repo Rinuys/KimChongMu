@@ -2,6 +2,10 @@
 {% load static %}
 
     {% block body %}
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="{% static "chongmu/js/kimchongmuABI.js"%}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "chongmu/js/web3.js" %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static "chongmu/js/contract.js" %}"></script>
     <!-- Main Content -->
     <section class="bg-light">
       <div class="container">
@@ -11,19 +15,25 @@
                 {% csrf_token %}
                 <div class="form-group">
                   <label>클럽 이름</label>
-                  <input type="text" class="form-control form-control-lg" name="clubName" id="clubName" placeholder="클럽 이름 입력">
+                  <input type="text" id="clubName" class="form-control form-control-lg" name="clubName"  placeholder="클럽 이름 입력">
                 </div>
-                
+
                 클럽 대표 사진
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" name="clubPhoto"   id="clubPhoto">
                   <label class="custom-file-label text-muted" for="clubPhoto">클럽 대표 사진 업로드</label>
                 </div>
                 <a href="#" style="visibility: hidden;">l<br><a>
-                <button type="submit" class="btn btn-info btn-sm">클럽생성</button>
-                
+                  <script>
+                     function createClubOnClick(){
+                     var clubName = document.getElementById("clubName").value;
+                     clubCreate(clubName);
+                   }
+                  </script>
+                <button id="createclubButton" type="submit" class="btn btn-info btn-sm" onclick="createClubOnClick()">클럽생성</button>
 
-                
+
+
               </form>
           </div>
         </div>

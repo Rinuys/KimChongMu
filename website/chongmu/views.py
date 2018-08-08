@@ -15,14 +15,14 @@ def index(request):
 def main(request):
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     meetingList = getInvitationList(request)
-    
-    
+
+
     jsonArray = "["
     for club in member.club_set.all():
         jsonArray = jsonArray + makeJson(club, member) + ','
     jsonArray = jsonArray.rstrip(',')
     jsonArray = jsonArray+"]"
-    
+
     return render(request, 'chongmu/main.html', {'member':member, 'meetingList':meetingList, 'jsonArray':jsonArray})
 
 
@@ -46,6 +46,3 @@ def createExec(request):
 def mypage(request):
     meetingList = getInvitationList(request)
     return render(request, 'chongmu/mypage.html', {'meetingList':meetingList})
-
-
-
