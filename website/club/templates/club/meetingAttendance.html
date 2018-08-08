@@ -12,7 +12,7 @@
       <div class="card-body">
         <div class="subheading"> 출석체크 </div>
           <hr>
-          <form action="{% url 'club:checkAttendance' club.id meeting.id %}" method="post">
+          <form action="{% url 'club:checkAttendance' club.id meeting.id %}" method="post" id="checkAttendance">
             {% csrf_token %}
             {% for member in meeting.members.all %}
               <div class="form-row">
@@ -40,4 +40,72 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+
+
+
+{% block js %}
+
+<script src='{% static "chongmu/ABI(180807).js" %}'></script>
+<script type="text/javascript">
+
+  $(function () {
+
+      if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider);
+      } else {
+        // set the provider you want from Web3.providers
+        console.log("메타마스크를 설치해 주세요.");
+      }
+
+    }
+  )
+
+
+
+  var firstCall = true;
+  $("#checkAttendance").submit(function () {
+    if(firstCall){
+
+        var myContractAddress = '0xb3929ff60b46cd191f6d8712c5a90d8e2220c5fe';
+        var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
+        var myAddress = web3.eth.accounts[0];
+
+        var memberIDArray = {{ memberIDArray|safe }};
+ 
+        for(var i=0; i<memberIDArray.length; i++){
+
+          checkedValue = $("input[name='"+memberIDArray[i]+"']:checked").val();
+
+          if(checkedValue == 'attendance'){
+            console.log(0);
+
+          }else if(checkedValue == 'lateness'){
+            console.log(1);
+          }
+          else if(checkedValue == 'absence'){
+            console.log(2);
+          }
+        }
+
+        
+        // 특정 멤버의 출석여부를 결정해주는 함수
+        myContract.clubCreate.sendTransaction('test', { from: myAddress }, function (err, transactionHash) {
+            if (!err){
+              console.log(transactionHash + " success");
+              firstCall= false;
+              $("#checkAttendance").submit();
+            }
+          }
+        );
+        return false;
+    }else{
+      return true;
+    }
+  });
+
+
+
+</script> 
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+import json
 # Create your views here.
 
 from .models import Club, Meeting, Invitation, Post, Comment
@@ -74,6 +75,7 @@ def meeting(request, club_id):
 
 def createMeeting(request, club_id):
     club = get_object_or_404(Club, pk=club_id)
+    member = get_object_or_404(Member, member_id=request.session['member_id'])
 
     name = request.POST['name']
     date = request.POST['date']
@@ -84,6 +86,8 @@ def createMeeting(request, club_id):
     time = str(hour)+":"+str(minute)
 
     meeting = club.meeting_set.create(name = name, date = date, time=time, comment=comment)
+    meeting.members.add(member)
+    meeting.founder.add(member)
     club.save()
 
     return HttpResponseRedirect(reverse('club:selectMember', args=(club.id, meeting.id)))
@@ -129,6 +133,17 @@ def acceptInvitation(request):
     
     invitation.save()
 
+    # 전체 모임멤버들의 초대수락 여부확인
+    state = checkMeetingState(meeting)
+    # 모두 수락시 모임장에게 알림쪽지 발송
+    if state == 'allAccept':
+        member = meeting.founder.all()[0]
+        invitation = Invitation()
+        invitation.contentType = 1
+        invitation.save()
+        meeting.invitation_set.add(invitation)
+        member.invitation_set.add(invitation)
+    
     return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 
@@ -144,27 +159,88 @@ def meetingInfo(request, club_id, meeting_id):
     else:
         timeout=False
     
-    allAccept=False
+    # 전체 모임멤버들의 초대수락 여부확인
     invitationList = meeting.invitation_set.all()
-    for invitation in invitationList:
-        if invitation.accept == True:
-            allAccept = True
+    state = checkMeetingState(meeting)
+    
 
-    return render(request, 'club/meetingInfo.html', {'club':club, 'meetingList':meetingList, 'meeting':meeting, 'timeout':timeout, 'invitationList':invitationList, 'allAccept':allAccept})
+    return render(request, 'club/meetingInfo.html', {'club':club, 'meetingList':meetingList, 'meeting':meeting, 'timeout':timeout, 'invitationList':invitationList, 'state':state, 'checkCompleted':meeting.checkCompleted})
 
+def confirmMeeting(request, club_id, meeting_id):
+
+    club = get_object_or_404(Club, pk=club_id)
+    meeting = club.meeting_set.get(pk=meeting_id)
+    meetingList = getInvitationList(request)
+    
+    # 전체 모임멤버들의 초대수락 여부확인
+    state = checkMeetingState(meeting)
+
+    if state == 'allAccept':
+    
+
+        # 기존 쪽지 삭제
+        meeting.invitation_set.all().delete()
+
+        # 모임원들에게 예치금 납부 쪽지 전송
+        for member in meeting.members.all():
+            invitation = Invitation()
+            invitation.contentType=2
+            invitation.save()
+            meeting.invitation_set.add(invitation)
+            member.invitation_set.add(invitation)
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
+    else:
+        return HttpResponseNotFound("없는 페이지 입니다.")
+
+
+
+def payFee(request, club_id, meeting_id):
+
+    club = get_object_or_404(Club, pk=club_id)
+    meeting = club.meeting_set.get(pk=meeting_id)
+    meetingList = getInvitationList(request)
+    member = get_object_or_404(Member, member_id=request.session['member_id'])
+    
+    # 전체 모임멤버들의 초대수락 여부확인
+    state = checkMeetingState(meeting)
+
+    if state == 'confirmed':
+
+        invitation = member.invitation_set.get(contentType = '2')
+        invitation.delete()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
+    else:
+        return HttpResponseNotFound("없는 페이지 입니다.")
+
+    
+
+    
 
 def meetingAttendance(request, club_id, meeting_id):
     club = get_object_or_404(Club, pk=club_id)
     meeting = club.meeting_set.get(pk=meeting_id)
     meetingList = getInvitationList(request)
 
-    return render(request, 'club/meetingAttendance.html', {'club':club, 'meetingList':meetingList, 'meeting':meeting})
+    if(meeting.checkCompleted == False):
+        memberIDList = []
+        for member in meeting.members.all():
+            memberIDList = memberIDList + [member.member_id]
+        
+        return render(request, 'club/meetingAttendance.html', {'club':club, 'meetingList':meetingList, 'meeting':meeting, 'memberIDArray':json.dumps(memberIDList)})
+    else:
+        return HttpResponseNotFound("없는 페이지 입니다.")
 
 
 def checkAttendance(request, club_id, meeting_id):
     club = get_object_or_404(Club, pk=club_id)
     meeting = club.meeting_set.get(pk=meeting_id)
     meetingList = getInvitationList(request)
+    meeting.checkCompleted = True
+    meeting.save()
 
     return HttpResponseRedirect(reverse('club:meeting', args=(club.id,)))
 
@@ -178,7 +254,7 @@ def getInvitationList(request):
     meetingList = []
     for invitation in invitations:
         if invitation.accept==None:
-            meetingList = meetingList + [(invitation.meeting.club.name,invitation.meeting.name,invitation.meeting.id)]
+            meetingList = meetingList + [(invitation.meeting.club.name,invitation.meeting.name,invitation.meeting.id, invitation.contentType, invitation.meeting.club.id)]
     return meetingList
 
 
@@ -198,3 +274,37 @@ def makeJson(club, member):
     json = json + "  ], \"color\": \"" + color +"\", \"textColor\": \"white\" } "
 
     return json
+
+
+
+def checkMeetingState(meeting):
+
+    state = 'inviting'
+
+    allAccept=False
+    confirmed=False
+    completed=False
+
+    invitationList = meeting.invitation_set.all()
+    
+    if len(invitationList) == 0:
+        state = 'completed'
+        return state
+
+    for invitation in invitationList:
+        if invitation.contentType == '0' and invitation.accept == True: # 초대 쪽지
+            allAccept = True
+
+        elif invitation.contentType == '1': # 모임 확정 요청 쪽지가 존재하는경우
+            state = 'allAccept'
+            return state
+
+        elif invitation.contentType == '2': # 예치금 송금 요청 쪽지가 존재하는 경우
+            state = 'confirmed'
+            return state
+        
+    if(allAccept):
+        state = 'allAccept'
+
+    return state
+

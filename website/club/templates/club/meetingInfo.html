@@ -11,15 +11,28 @@
     <div class="card w-100">
       <div class="card-body">
         <div class="subheading"> 모임 상태 </div>
-        <div class = "row p-4">
-          {% if allAccept == False %}
+        <div class = "row p-4 " style="height:80px">
+          {% if state == 'inviting' %}
             <button type=button class="btn btn-outline-primary col-sm-4 mybtn active"> 초대 중 </button>
             <button type=button class="btn btn-outline-secondary col-sm-4 mybtn" disabled> 예치금 납부중 </button>
             <button type=button class="btn btn-outline-secondary col-sm-4 mybtn" disabled> 확정 </button>
-          {% elif allAccept == True %}
+            
+          {% elif state == 'allAccept' %}
+          
+            <a href="{% url 'club:confirmMeeting' club.id meeting.id %}" class="col-sm-12" id="managerConfirmButton" style="display:none">
+              <button type=button class="btn btn-outline-secondary col-sm-12 mybtn"  > 모임 확정 하기 </button>
+            </a>
+            <button type=button class="btn btn-outline-secondary col-sm-12 mybtn" disabled id="memberConfirmButton" style="display:none"> 모임 확정 대기중 </button>
+            
+          {% elif state == 'confirmed' %}
             <button type=button class="btn btn-outline-secondary col-sm-4 mybtn" disabled> 초대 중 </button>
             <button type=button class="btn btn-outline-primary col-sm-4 mybtn active"> 예치금 납부중 </button>
             <button type=button class="btn btn-outline-secondary col-sm-4 mybtn" disabled> 확정 </button>
+          
+          {% elif state == 'completed' %}
+            <button type=button class="btn btn-outline-secondary col-sm-4 mybtn" disabled> 초대 중 </button>
+            <button type=button class="btn btn-outline-secondary col-sm-4 mybtn" disabled> 예치금 납부중 </button>
+            <button type=button class="btn btn-outline-primary col-sm-4 mybtn active"> 확정 </button>
           {% endif %}
         </div>
         <hr>
@@ -37,53 +50,156 @@
         <hr>
       </div>
     </div>
+
     <div class="card w-100 mt-3">
-        <div class="card-body">
-          <div class="subheading"> 모임 참가자 </div>
-          <hr>
+      <div class="card-body">
+        <div class="subheading"> 모임 참가자 </div>
+        <hr> 
           {% for member in meeting.members.all %}
           <div class="row" style="font-size:19px">
-            <div class="col-sm-2 text-center"> {{member.member_name}} </div>
-            {% for invitation in invitationList %}
+            <div class="col-sm-2 text-center">
+              {{member.member_name}}
+            </div>
+            <div class="col-sm-10">
+            {% for invitation in invitationList %} 
+              <!-- 초대 -->
               {% if invitation.receiver == member %}
-                {% if invitation.accept is None %}
-                  <button type=button class="btn btn-outline-danger col-sm-4 mybtn" disabled> 초대 수락 대기중 </button>
+                {% if invitation.contentType == '0' %}
+                  {% if invitation.accept is None %}
+                    <button type=button class="btn btn-outline-danger col-sm-4 mybtn" disabled> 초대 수락 대기중 </button>
+                  {% elif invitation.accept is True %}
+                    <button type=button class="btn btn-outline-success col-sm-4 mybtn" disabled> 초대 수락 </button>
+                  {% elif invitation.accept is False %}
+                    <button type=button class="btn btn-outline-danger col-sm-4 mybtn" disabled> 초대 거부 </button>  
+                  {% endif %}
+
+                {% elif state == 'confirmed' or state == 'completed' %}
+                  <div>
+        
+                    <button type=button class="btn btn-outline-success col-sm-4 mybtn" disabled id = "paid" style="display:none"> 예치금 납부완료 </button>
+                    <button type=button class="btn btn-outline-danger col-sm-4 mybtn" disabled id="unpaid" style="display:none"> 예치금 미납 </button>
+                    <a href="{% url 'club:payFee' club.id meeting.id %}" id="payButton" style="display:none" class="col-sm-1 ml-3">
+                      <button type=button class="btn mybtn"> 납부 </button>
+                    </a>
                   </div>
-                  <hr>
-                {% elif invitation.accept is True %}
-                  <button type=button class="btn btn-outline-success col-sm-4 mybtn" disabled> 초대 수락 </button>
-                  </div>
-                  <hr>
-                {% elif invitation.accept is False %}
-                  <button type=button class="btn btn-outline-danger col-sm-4 mybtn" disabled> 초대 거부 </button>
-                  </div>
-                  <hr>
                 {% endif %}
-              {% endif %}
+              {% endif %} 
             {% endfor %}
-          {% endfor %}
-<!--           
-          <div class ="row" style="font-size:19px">
-          <div class= "col-sm-2 text-center"> 이홍석 </div>
-          <button type=button class="btn btn-outline-success col-sm-4 mybtn" disabled> 예치금 납부완료 </button>
+            </div>
           </div>
           <hr>
-          <div class ="row" style="font-size:19px">
-          <div class= "col-sm-2 text-center"> 전유진 </div>
-          <button type=button class="btn btn-outline-danger col-sm-4 mybtn" disabled> 예치금 미납 </button>
-          </div> -->
+          {% endfor %} 
 
-        <hr>
-        {% if timeout == True %}
+        <div>
+          {% if timeout == True and state == 'completed' and checkCompleted == False %}
           <a href=" {% url 'club:meetingAttendance' club.id meeting.id %} ">
             <button class="btn btn-outline-secondary w-100">출석체크</button>
           </a>
-        {% else %}
+          {% elif checkCompleted == True %}
+          <button class="btn btn-outline-secondary w-100" disabled>출석체크완료</button>
+          {% else %}
           <button class="btn btn-outline-secondary w-100" disabled>출석체크</button>
-        {% endif %}
-
-
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
+{% endblock %}
+
+
+{% block js %}
+
+<script src='{% static "chongmu/ABI(180807).js" %}'></script>
+<script type="text/javascript">
+
+
+  
+  $(function () {
+
+      var meetingFounder = "{{meeting.founder.all.0.member_id}}";
+      var user = "{{request.session.member_id}}";
+
+      if (meetingFounder == user) {
+        $("#managerConfirmButton").show();
+      } else {
+        $("#memberConfirmButton").show();
+      }
+
+
+
+      if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider);
+      } else {
+        // set the provider you want from Web3.providers
+        console.log("메타마스크를 설치해 주세요.");
+      }
+
+      var myContractAddress = '0xb3929ff60b46cd191f6d8712c5a90d8e2220c5fe';
+      var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
+      var myAddress = web3.eth.accounts[0];
+
+
+      var isPaid = false;
+
+      // 특정 미팅의 특정 멤버가 납부를 했는지 안했는지 리턴하는 함수
+      myContract.getClubInfo.call('testClub', function (error, result) {
+        // result를 처리 ex : console.log(JSON.stringify(result));
+        if (isPaid) {
+          $("#paid").show();
+        } else {
+          $("#unpaid").show();
+          $("#payButton").show();
+        }
+      }
+      );
+
+    }
+    )
+
+
+
+  $('#managerConfirmButton').click(function () {
+
+    var myContractAddress = '0xb3929ff60b46cd191f6d8712c5a90d8e2220c5fe';
+    var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
+    var myAddress = web3.eth.accounts[0];
+
+    // 모임을 생성하는 함수
+    myContract.clubCreate.sendTransaction('testClub3', { from: myAddress }, function (err, transactionHash) {
+      if (!err)
+      {
+        console.log(transactionHash + " success");
+        var url = $("#managerConfirmButton").attr("href");
+        location.href = url;
+      }
+    });
+
+    return false;
+  });
+
+  $('#payButton').click(function () {
+
+    var myContractAddress = '0xb3929ff60b46cd191f6d8712c5a90d8e2220c5fe';
+    var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
+    var myAddress = web3.eth.accounts[0];
+
+    // 모임을 생성하는 함수
+    myContract.clubCreate.sendTransaction('testClub3', { from: myAddress }, function (err, transactionHash) {
+      if (!err)
+      {
+        console.log(transactionHash + " success");
+        var url = $("#payButton").attr("href");
+        location.href = url;
+      }
+    });
+
+    return false;
+  });
+
+
+  
+
+
+
+</script> 
 {% endblock %}

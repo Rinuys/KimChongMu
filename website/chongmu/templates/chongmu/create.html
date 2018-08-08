@@ -1,5 +1,6 @@
 {% extends "chongmu/logined_base.html" %}
-    {% load static %}
+{% load static %}
+
     {% block body %}
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="{% static "chongmu/js/kimchongmuABI.js"%}"></script>
@@ -39,17 +40,3 @@
       </div>
     </section>
     {% endblock %}
-
-
-    <!--
-    <script type="text/javascript">
-      $("form").submit(function() {
-        var myABI;
-        var myContractAddress;
-        var myContract = new web3js.eth.Contract(myABI, myContractAddress);
-        myContract.methods.clubCreate($("#name").val());
-        myContract.methods.memberCreate("test123",$("#name").val(),1);
-        alert(); return false;
-      });
-    </script>
-    -->
