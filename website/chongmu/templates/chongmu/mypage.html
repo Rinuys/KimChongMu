@@ -1,11 +1,30 @@
 {% extends "chongmu/logined_base.html" %}
 {% load static %}
- 
+
 
   {% block body %}
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="{% static "chongmu/js/kimchongmuABI.js"%}"></script>
+  <script language="javascript" type="text/javascript" src="{% static "chongmu/js/web3.js" %}"></script>
+  <script language="javascript" type="text/javascript" src="{% static "chongmu/js/contract.js" %}"></script>
+
       <!-- Main Content -->
       <section class="bg-light" id="myclub">
         <div class="container">
+          <script>
+            web3.eth.getAccount(function(error, result){//뒤function으로 account전달
+              if(error) return consol.error(error);
+              //web3.eth의 0번째에 account가 있기때문
+              var outputspace = document.getElementById('testMypage');
+              consol.log(getMemberInfo(result[0]));
+              outputspace.innerHtml = web3.toAscii(assessment.getMemberInfo(result[0]));
+
+            //  document.getElementById("testMypage").POST(memberInfomation.numberOfClub);
+            });
+          </script>
+          <div id="testMypage">
+            여기test
+          </div>
             <div class="row justify-content-center">
                 <div class="col-9 center-block">
 
@@ -50,7 +69,5 @@
         </div>
       </section>
 
-      
+
   {% endblock %}
-
-
