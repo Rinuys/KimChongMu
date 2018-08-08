@@ -6,6 +6,10 @@
 {% block body %}
   <head>
     <title> 회원가입 </title>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'web3.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'kimchongmuABI.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'contract.js' %}"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -43,14 +47,21 @@
           </dl>
          </div>
          <div class="join_footer">
-
-           <input type="submit" value="가입" />
+           <script>
+           web3.eth.getAccounts(function(error, result){
+                     if (error) return console.error(error);
+                      document.getElementById("meta_address").value=result[0];
+                    });
+           </script>
+           <input id="meta_address" type="hidden" name="meta_address">
+           <input type="submit" value="가입" onclick=memberCreate()>
          </div>
         </div>
 
       </form>
 
-     </div>
+    </div>
+
   </body>
 
 {% endblock %}

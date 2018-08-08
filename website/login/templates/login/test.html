@@ -9,8 +9,8 @@
 <!--크립토좀비-->
 
     <script language="javascript" type="text/javascript" src="{% static 'web3.js' %}"></script>
-    <script language="javascript" type="text/javascript" src="{% static 'kimchongmu_ABI.js' %}"></script>
-
+    <script language="javascript" type="text/javascript" src="{% static 'kimchongmuABI.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'contract.js' %}"></script>
 <!--    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 -->
 <!--    <script language="javascript" type="text/javascript" src="../../../json/web3.js-0.20.6/dist/web3.js"></script>
@@ -19,183 +19,13 @@
 <!--    <script type="text/javascript">
 
 </script>-->
-
+  <script>
+  </script>
 </head>
 <body>
 안녕하세요 <메타마스크의 Web3 프로바이더 사용하기>
-  <script>//메타마스크는 web3라는 전역 자바스크립트 객체를 통해 브라우저에 Web3 프로바이더를 주입하네.그러니 자네 앱에서는 web3가 존재하는지 확인하고, 만약 존재한다면 web3.currentProvider를 프로바이더로서 사용하면 되지. 여기 메타마스크에서 제공하는 템플릿 코드가 있네. 사용자가 메타마스크를 설치했는지 확인하고 설치가 안 된 경우 우리 앱을 사용하려면 메타마스크를 설치해야 한다고 알려주는 것이지:
-    var kimchongmus;//인스턴스화 된 컨트렉트 저장하는변수
-    var kimchongmuAddress = "0x145029b21c581f47c66522e4a55ca37b9eb9deae";
+<script>
 
-    function startApp(){
-
-      window.addEventListener('load', function() {
-
-        // Web3가 브라우저에 주입되었는지 확인(Mist/MetaMask)
-        if (typeof web3 !== 'undefined') {//!=
-          // Mist/MetaMask의 프로바이더 사용
-          web3 = new Web3(web3.currentProvider);
-        } else {
-          // 사용자가 Metamask를 설치하지 않은 경우에 대해 처리
-          // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
-        }
-      });
-      var myContract = web3.eth.contract(kimchongmuABI);
-      window.contractInstance = web3.eth.contract(kimchongmuABI).at(kimchongmuAddress);
-
-      web3.eth.getAccounts(function(error, result){
-                if (error) return console.error(error);
-                 window.web3.eth.defaultAccount = result[0];
-               });
-      var accountInterval = setInterval(function() {
-      // 계정이 바뀌었는지 확인
-
-      web3.eth.getAccounts(function(error, result){
-                if (error) return console.error(error);
-                if (window.web3.eth.defaultAccount !== result[0]) {
-                  window.web3.eth.defaultAccount = result[0];
-                }
-               });
-    }, 100);
-
-    //culbCreate(clubId);
-    //memberCreate();//본인의 주소가 멤버아이디로 사용되기 때문에 매개변수 필요x
-    //getClubInfo(clubId);
-    getClub('kim');
-    window.contractInstance.numberOfClub(function(error, result){
-      if (error) return console.error(error);
-      else console.log(JSON.stringify(result));
-    });
-  }
-
-  //클럽 생성 함수
-  function clubCreate(_clubId){
-    web3.eth.getAccounts(function(error, result){//set함수는 getaccount필요? & function으로 뒤에 출력하는거 써줘야한다
-      if (error) return console.error(error);
-      else window.contractInstance.clubCreate(_culbId, function(error, result){
-        if(!error)
-          console.log(JSON.stringify(result));
-        else
-          console.error(error);
-      });
-    });
-  }
-
-  //멤버 생성 함수
-  function memberCreate(){
-    web3.eth.getAccounts(function(error, result){
-      if (error) return console.error(error);
-      else window.contractInstance.memberCreate(function(error, result){
-        if (error) return console.error(error);
-        else console.log(JSON.stringify(result));
-      });
-    });
-  }
-
-  //클럽 정보 불러오기 함수
-  function getClubInfo(_clubId){
-    window.contractInstance.getClubInfo(_clubId, function(error, result){
-      if (error) return console.error(error);
-      else console.log(JSON.stringify(result));//get은 보여주는함수 보여줘야만한다
-    });
-  }
-
-  function getClub(_clubId){
-    window.contractInstance.club(_clubId, function(error, result){
-      if (error) return console.error(error);
-      else console.log(JSON.stringify(result));
-    });
-  }
-
-  startApp();
-    //-------------환경설정
-
-
-//    function displayMembers(ids) {
-//      $("#members").empty();//members id가 적힌 html부분에 이 정보를 적용하겠다
-//      for (id of ids) {
-        // 우리 컨트랙트에서 좀비 상세 정보를 찾아, `zombie` 객체 반환
-//        getMembers(id)
-//        .then(function(zombie) {//getmembers가 return 해주는 객체를 여기서 바로 사용가능하도록
-          // HTML에 변수를 넣기 위해 ES6의 "template literal" 사용
-          // 각각을 #zombies div에 붙여넣기
-          //then : 비동기식
-
-          //function(zombie)라는 지역함수 선언
-//          $("#zombies").append(`
-//            <div class="zombie">
-//            <ul>
-//              <li>Name: ${zombie.name}</li>
-//              <li>DNA: ${zombie.dna}</li>
-//              <li>Level: ${zombie.level}</li>
-//              <li>Wins: ${zombie.winCount}</li>
-//              <li>Losses: ${zombie.lossCount}</li>
-//              <li>Ready Time: ${zombie.readyTime}</li>
-//            </ul>
-//          </div>`);
-//        });
-//      }
-//    }
-    //--------------6번
-  //  function createRandomZombie(name) {
-//
-//
-//      $("#txStatus").text("Creating new zombie on the blockchain. This may take a while...");
-//
-//      return CryptoZombies.methods.createRandomZombie(name)
-//      .send({ from: userAccount })//트랜잭션을 전송(send)하려면 함수를 호출한 사람의 from 주소가 필요하네(솔리디티 코드에서는 msg.sender가 될 것이네). 이는 우리 DApp의 사용자가 되어야 할 것이니, 메타마스크가 나타나 그들에게 서명을 하도록 할걸세.
-//      .on("receipt", function(receipt) {
-//        $("#txStatus").text("Successfully created " + name + "!");
-
-//        getZombiesByOwner(userAccount).then(displayZombies);
-//      })
-//      .on("error", function(error) {//receipt는 트랜잭션이 이더리움의 블록에 포함될 때, 즉 좀비가 생성되고 우리의 컨트랙트에 저장되었을 때 발생하게 되네.
-//error는 트랜잭션이 블럭에 포함되지 못했을 때, 예를 들어 사용자가 충분한 가스를 전송하지 않았을 때 발생하게 되네. 우리는 우리의 UI를 통해 사용자에게 트랜잭션이 전송되지 않았음을 알리고, 다시 시도할 수 있도록 할 것이네
-
-//        $("#txStatus").text(error);
-//      });
-//    }
-//자네가 send를 호출할 때 gas와 gasPrice를 선택적으로 지정할 수 있네. .send({ from: userAccount, gas: 3000000 })와 같이 말이야. 만약 지정하지 않는다면, 메타마스크는 사용가 이 값들을 선택할 수 있도록 할 걸세.
-//
-//    function feedOnKitty(zombieId, kittyId) {
-//
-//
-//      $("#txStatus").text("Eating a kitty. This may take a while...");
-//
-//      return CryptoZombies.methods.feedOnKitty(zombieId, kittyId)
-//      .send({ from: userAccount })
-//      .on("receipt", function(receipt) {
-//        $("#txStatus").text("Ate a kitty and spawned a new Zombie!");
-//
-//        getZombiesByOwner(userAccount).then(displayZombies);
-//      })
-//      .on("error", function(error) {
-//
-//        $("#txStatus").text(error);
-//      });
-//    }
-//
-
-    //--------------7번
-
-//    function getMembers(member_id, club_id){//public형 members받아왔다치고
-//      return kimchongmus.methods.members(member_id, club_id).call()//저장된 정보 받아오기 : call(view와 pure함수를 위해 사용/읽기전용 가스소모없음)
-//    }
-//    function zombieToOwner(id) {
-//      return cryptoZombies.methods.zombieToOwner(id).call()
-//    }
-
-//    function getZombiesByOwner(owner) {
-//      return cryptoZombies.methods.getZombiesByOwner(owner).call()
-//    }
-//    function clubCreate(clubId){
-//      return kimchongmus.methods.clubCreate(clubId)
-//    }
-//    function getClubInfo(clubId){
-//      return kimchongmus.methods.getClubInfo(clubId).call()
-//    }
-    //--------------
-
-  </script>
+</script>
 </body>
 </html>
