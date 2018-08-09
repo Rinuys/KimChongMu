@@ -1,6 +1,8 @@
 from django.db import models
 from login.models import Member
 from django.utils import timezone
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 # Create your models here.
 
@@ -9,7 +11,7 @@ from django.utils import timezone
 class Club(models.Model):
     name = models.CharField(max_length=50)
     members = models.ManyToManyField(Member)
-    photo = models.ImageField(blank=True)
+    photo = models.ImageField(default='defaultImage.jpg')
 
     def __str__(self):
         return self.name

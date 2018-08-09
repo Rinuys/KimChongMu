@@ -32,9 +32,15 @@ def create(request):
 
 def createExec(request):
     clubName = request.POST['clubName']
-    clubPhoto = request.FILES['clubPhoto']
-    club = Club(name = clubName, photo=clubPhoto)
-    club.save()
+    try:
+        clubPhoto = request.FILES['clubPhoto']
+        club = Club(name = clubName, photo=clubPhoto)
+        club.save()
+    except:
+        club = Club(name = clubName)
+        club.save()
+        
+    
 
     member = get_object_or_404(Member, member_id=request.session['member_id'])
     club.members.add(member)
