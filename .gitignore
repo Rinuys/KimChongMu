@@ -1,16 +1,2 @@
-
-website/login/models.py
-website/login/views.py
-website/login/urls.py
-website/login/tests.py
-website/login/migrations/__init__.py
-website/login/apps.py
-website/login/admin.py
-website/login/__init__.py
-website/login/models.py
-website/login/models.py
-website/login/models.py
-website/login/models.py
-website/db.sqlite3
 *.pyc
 *.pyc

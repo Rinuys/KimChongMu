@@ -12,7 +12,7 @@ contract MeetingManager is ClubManager{
         require(isClubIdExist(_clubId));
         require(isMemberIdExist(msg.sender));
         require(!isMeetingIdExist(_clubId, _meetingId, _time));
-        require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
+        //require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
         Meeting memory temp;
         bytes32 tempId = keccak256(_clubId, _meetingId, _time);
         temp.id = _meetingId;
@@ -42,17 +42,56 @@ contract MeetingManager is ClubManager{
         require(isClubIdExist(_clubId));
         require(isMemberIdExist(msg.sender));
         require(isMeetingIdExist(_clubId, _meetingId, _time));
-        require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
+        //require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
+        
         bytes32 tempId = keccak256(_clubId, _meetingId, _time);
         meeting[tempId].member.push(_memberId);
         meeting[tempId].numberOfMember++;
+        
         member[_memberId].meeting.push(tempId);
         member[_memberId].numberOfMeeting++;
+        
         MemberState memory tempState;
         tempState.stake = 0;
         tempState.state = 0;
         meeting[tempId].memberState[_memberId] = tempState;
         
         emit memberAddedInMeeting(_clubId, _meetingId, _memberId);
+    }
+    
+    function transferToMeeting(string _clubId, string _meetingId, uint256 _time) 
+        public 
+        payable
+    {
+        require(isClubIdExist(_clubId));
+        require(isMeetingIdExist(_clubId, _meetingId, _time));
+        require(isMemberInMeeting(_clubId, _meetingId, _time, msg.sender));
+        bytes32 tempId = keccak256(_clubId, _meetingId, _time);
+        require(msg.value == meeting[tempId].balance);
+        
+        msg.sender.transfer(address(this).balance);
+        
+        meeting[tempId].balance += msg.value;
+        meeting[tempId].memberState[msg.sender].stake = msg.value;
+        
+        club[stringToBytes32(_clubId)].balance += msg.value;
+        
+        emit transferTo(msg.sender, address(this), msg.value);
+    }
+    
+    function isMemberInMeeting(string _clubId, string _meetingId, uint256 _time, address _memberId) 
+        public 
+        view
+        returns(bool)
+    {
+        bytes32 tempId = keccak256(_clubId, _meetingId, _time);
+        uint tempNumber = meeting[tempId].numberOfMember;
+        uint i;
+        for(i = 0 ; i < tempNumber ; i++){
+            if(meeting[tempId].member[i] == _memberId){
+                break;
+            }
+        }
+        return (i != tempNumber && tempNumber != 0);
     }
 }
