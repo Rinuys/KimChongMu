@@ -69,6 +69,24 @@ var kimchongmuABI = [
 				"type": "string"
 			},
 			{
+				"name": "_memberId",
+				"type": "address"
+			}
+		],
+		"name": "deleteMemberInClub",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
 				"name": "_meetingId",
 				"type": "string"
 			},
@@ -77,7 +95,7 @@ var kimchongmuABI = [
 				"type": "uint256"
 			},
 			{
-				"name": "_balance",
+				"name": "_value",
 				"type": "uint256"
 			}
 		],
@@ -95,6 +113,50 @@ var kimchongmuABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
+				"name": "_meetingId",
+				"type": "string"
+			},
+			{
+				"name": "_time",
+				"type": "uint256"
+			}
+		],
+		"name": "startTransfer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferTo",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -140,28 +202,6 @@ var kimchongmuABI = [
 		"inputs": [
 			{
 				"indexed": false,
-				"name": "_from",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "_to",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "_value",
-				"type": "uint256"
-			}
-		],
-		"name": "transferTo",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
 				"name": "_clubId",
 				"type": "string"
 			},
@@ -179,11 +219,16 @@ var kimchongmuABI = [
 		"inputs": [
 			{
 				"indexed": false,
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
+				"indexed": false,
 				"name": "_memberId",
 				"type": "address"
 			}
 		],
-		"name": "memberCreated",
+		"name": "deletedMemberInClub",
 		"type": "event"
 	},
 	{
@@ -202,6 +247,40 @@ var kimchongmuABI = [
 		],
 		"name": "memberAddedInClub",
 		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_memberId",
+				"type": "address"
+			}
+		],
+		"name": "memberCreated",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
+				"name": "_meetingId",
+				"type": "string"
+			},
+			{
+				"name": "_time",
+				"type": "uint256"
+			}
+		],
+		"name": "transferToMeeting",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -288,6 +367,49 @@ var kimchongmuABI = [
 			{
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
+				"name": "_meetingId",
+				"type": "string"
+			},
+			{
+				"name": "time",
+				"type": "uint256"
+			}
+		],
+		"name": "getMeetingInfo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"name": "",
+				"type": "uint32"
 			}
 		],
 		"payable": false,
@@ -409,6 +531,102 @@ var kimchongmuABI = [
 		"constant": true,
 		"inputs": [
 			{
+				"name": "_meetingId",
+				"type": "bytes32"
+			}
+		],
+		"name": "isMeetingIdExist_Bytes32",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
+				"name": "_memberId",
+				"type": "address"
+			}
+		],
+		"name": "isMemberInClub",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
+				"name": "_meetingId",
+				"type": "string"
+			},
+			{
+				"name": "_time",
+				"type": "uint256"
+			},
+			{
+				"name": "_memberId",
+				"type": "address"
+			}
+		],
+		"name": "isMemberInMeeting",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_memberId",
+				"type": "address"
+			},
+			{
+				"name": "_meetingId",
+				"type": "bytes32"
+			}
+		],
+		"name": "isMemberInMeeting_Bytes32",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"name": "",
 				"type": "bytes32"
 			}
@@ -428,8 +646,16 @@ var kimchongmuABI = [
 				"type": "uint256"
 			},
 			{
-				"name": "balance",
+				"name": "value",
 				"type": "uint256"
+			},
+			{
+				"name": "totalBalance",
+				"type": "uint256"
+			},
+			{
+				"name": "state",
+				"type": "uint8"
 			},
 			{
 				"name": "numberOfMember",

@@ -22,6 +22,7 @@
           <div class="input-group-append">
             <button type="submit" class="btn btn-outline-primary float-right">작성</button>
           </div>
+          <input type="hidden" id="clubName" value="{{club.name}}"/>
         </div>
       </form>
     </div>
@@ -34,65 +35,14 @@
       <div class="subheading"> 멤버 </div>
       <hr>
       {% for clubMember in club.members.all%}
-        <h6>{{clubMember}}</h6>
+        <h6 id="clubMembers" value="{{clubMember}}">{{clubMember}}</h6>
         <hr> 
       {% endfor %}
     </div>
   </div>
 </div>
-
-
-
-
   {% endblock %}
 
 
-
-  {% block js %}
-
-  <script src='{% static "chongmu/ABI(180807).js" %}'></script>
-  <script type="text/javascript">
-
-    $(function () {
-
-        if (typeof web3 !== 'undefined') {
-          web3 = new Web3(web3.currentProvider);
-        } else {
-          // set the provider you want from Web3.providers
-          console.log("메타마스크를 설치해 주세요.");
-        }
-
-        
-
-      }
-    )
-
-    var firstCall = true;
-    $("#addMember").submit(function () {
-      if(firstCall){
-
-          var myContractAddress = '0x145029b21c581f47c66522e4a55ca37b9eb9deae';
-          var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
-          var myAddress = web3.eth.accounts[0];
-
-          var clubID = "{{club.name}}";
-          var memberID = myAddress;
-          var authority = 2;
-
-          
-          myContract.addMember.sendTransaction(clubID, memberID, authority, { from: myAddress }, function (err, transactionHash) {
-              if (!err){
-                console.log(transactionHash + " success");
-                firstCall= false;
-                $("#addMember").submit();
-              }
-            }
-          );
-          return false;
-      }else{
-        return true;
-      }
-    });
-
-  </script>
+{% block js %}
 {% endblock %}

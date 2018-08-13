@@ -1,6 +1,10 @@
 {% extends "chongmu/base.html" %}
 {% load static %}
 
+{% block logo %}
+  <a class="navbar-brand"  href="{% url 'chongmu:main' %}">KIMCHONGMU</a>
+{% endblock %}
+
   {% block style %}
     <style>
       #mainNav { background-color:white !important; box-shadow: 1px 1px 1px 1px rgb(190, 190, 190);}
