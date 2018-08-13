@@ -1,4 +1,4 @@
-var kimchongmuAddress = "0x145029b21c581f47c66522e4a55ca37b9eb9deae";
+var kimchongmuAddress = "0x9ab46ca98da3c4da146daa5c9edf9019c55e3786";
 
 function startApp(){
 
@@ -13,8 +13,8 @@ function startApp(){
       // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
     }
   });
-  var myContract = web3.eth.contract(kimchongmuABI);
-  window.contractInstance = web3.eth.contract(kimchongmuABI).at(kimchongmuAddress);
+  var myContract = web3.eth.contract(kimchongmuABI1);
+  window.contractInstance = web3.eth.contract(kimchongmuABI1).at(kimchongmuAddress);
 
   web3.eth.getAccounts(function(error, result){
             if (error) return console.error(error);
@@ -35,7 +35,7 @@ function startApp(){
 //memberCreate();//본인의 주소가 멤버아이디로 사용되기 때문에 매개변수 필요x
 //getClubInfo(clubId);
 console.log(window.contractInstance);
-getMember();
+getMemberInfo();
 
 //클럽 생성 함수
 function clubCreate(_clubId){
@@ -69,14 +69,14 @@ window.contractInstance.getClubInfo(_clubId, function(error, result){
 });
 }
 
-function getClub(_clubId){
+function getClubInfo(_clubId){
 window.contractInstance.club(_clubId, function(error, result){
   if (error) return console.error(error);
   else console.log(JSON.stringify(result));
 });
 }
 
-function getMember(){
+function getMemberInfo(){
   web3.eth.getAccounts(function(error, result){
     if (error) return console.error(error);
     else window.contractInstance.member(result[0], function(error, result){
