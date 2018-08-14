@@ -1,4 +1,4 @@
-var kimchongmuAddress = "0x145029b21c581f47c66522e4a55ca37b9eb9deae";
+var kimchongmuAddress = "0xc3ef363588d77a0bb7e06609afc37e1f113bedf0";
 
 function startApp(){
 
@@ -34,8 +34,6 @@ web3.eth.getAccounts(function(error, result){
 
 //memberCreate();//본인의 주소가 멤버아이디로 사용되기 때문에 매개변수 필요x
 //getClubInfo(clubId);
-console.log(window.contractInstance);
-getMember();
 
 //클럽 생성 함수
 function clubCreate(_clubId){
@@ -80,6 +78,17 @@ function getMember(){
   web3.eth.getAccounts(function(error, result){
     if (error) return console.error(error);
     else window.contractInstance.member(result[0], function(error, result){
+      if (error) return console.error(error);
+      else console.log(JSON.stringify(result));
+      return result;
+    });
+  });
+}
+
+function getMemberInfo(){
+  web3.eth.getAccounts(function(error, result){
+    if (error) return console.error(error);
+    else window.contractInstance.getMemberInfo(result[0], function(error, result){
       if (error) return console.error(error);
       else console.log(JSON.stringify(result));
     });
