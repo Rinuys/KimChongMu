@@ -344,6 +344,41 @@ var kimchongmuABI = [
 				"type": "string"
 			},
 			{
+				"name": "_time",
+				"type": "uint256"
+			},
+			{
+				"name": "_memberId",
+				"type": "address"
+			}
+		],
+		"name": "getMemberState",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_clubId",
+				"type": "string"
+			},
+			{
+				"name": "_meetingId",
+				"type": "string"
+			},
+			{
 				"name": "time",
 				"type": "uint256"
 			}

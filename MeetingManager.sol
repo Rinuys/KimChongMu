@@ -161,6 +161,21 @@ contract MeetingManager is ClubManager{
         Meeting memory temp = meeting[tempId];
         return(temp.id, temp.value, temp.totalBalance, temp.state, temp.numberOfMember);
     }
+
+    function getMemberState(
+        string _clubId,
+        string _meetingId,
+        uint256 _time,
+        address _memberId
+    )
+        public
+        view
+        returns(uint256, uint8)
+    {
+        bytes32 tempId = argToBytes32(_clubId, _meetingId, _time);
+        MemberState memory temp = meeting[tempId].memberState[_memberId];
+        return(temp.stake, temp.state);
+    }
     
 /*
     function revertBalance(string _clubId, bytes32 _meetingId) 
