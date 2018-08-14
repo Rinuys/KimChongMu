@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-
 {% extends "chongmu/base.html" %}
-
 {% load static %}
-{% block body %}
-  <head>
-    <title> 회원가입 </title>
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="{% static 'web3.js' %}"></script>
-    <script language="javascript" type="text/javascript" src="{% static 'kimchongmuABI.js' %}"></script>
-    <script language="javascript" type="text/javascript" src="{% static 'contract.js' %}"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel = "stylesheet" type="text/css" href="..\static\make_account.css"><!--href="..\..\static\login\make_account.css">-->
-    <style type = "text/css"></style><!--view.py의 make_accouts에서선언한 변후 customers인듯-->
-  </head>
+{% block style %}
+<link rel = "stylesheet" type="text/css" href="..\static\make_account.css"><!--href="..\..\static\login\make_account.css">-->
+<style type = "text/css"></style><!--view.py의 make_accouts에서선언한 변후 customers인듯-->
+{% endblock %}
+
+{% block body %}
   <body style="background-image: url('{% static 'chongmu/img/people.jpg' %}?var=1')">
     <div class = "body">
 
-      <form action = "/made_new_account" method = "POST"><!--<form action = "make_accounts/{{customers}}" format>-->
+      <form action = "/made_new_account" method = "POST" id="memberCreate"><!--<form action = "make_accounts/{{customers}}" format>-->
         {% csrf_token %}
         {{ form.as_p }}
         <br/><br/><br/><br/><br/><br/>
@@ -47,21 +37,11 @@
           </dl>
          </div>
          <div class="join_footer">
-           <script>
-           web3.eth.getAccounts(function(error, result){
-                     if (error) return console.error(error);
-                      document.getElementById("meta_address").value=result[0];
-                    });
-           </script>
            <input id="meta_address" type="hidden" name="meta_address">
-           <input type="submit" value="가입" onclick=memberCreate()>
+           <input type="submit" value="가입">
          </div>
         </div>
-
       </form>
-
     </div>
-
   </body>
-
 {% endblock %}

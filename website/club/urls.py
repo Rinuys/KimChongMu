@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^(?P<club_id>\d+)/meeting/meetingAttendance/(?P<meeting_id>\d+)$', views.meetingAttendance, name='meetingAttendance' ),
     url(r'^(?P<club_id>\d+)/meeting/checkAttendance/(?P<meeting_id>\d+)$', views.checkAttendance, name='checkAttendance' ),
 
-    url(r'/acceptInvitation/$', views.acceptInvitation, name='acceptInvitation' ),
+    url(r'^acceptInvitation/$', views.acceptInvitation, name='acceptInvitation' ),
+    url(r'^(?P<club_id>\d+)/leaveClub$', views.leaveClub, name='leaveClub' ),
 
 ]
