@@ -74,7 +74,7 @@ contract KimChongMu{                // KimChongMu contract
     }
     
     function isMemberIdExist(address _memberId)         // 멤버의 아이디가 있는지 체크하는 함수
-        internal 
+        public 
         view 
         returns(bool)
     {
@@ -208,6 +208,15 @@ contract KimChongMu{                // KimChongMu contract
         returns(uint256)
     {
         return numberOfMeeting;
+    }
+    
+    function getAuthorityOfMember(string _clubId, address _memberId)
+        public
+        view
+        returns(uint8)
+    {
+        require(isMemberInClub(_clubId,_memberId));
+        return club[stringToBytes32(_clubId)].authority[_memberId];
     }
     
 }

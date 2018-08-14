@@ -17,7 +17,7 @@ contract ClubManager is MemberManager{ // 클럽 관리에 필요한 Contract
         club[tempId].id = _clubId;              // id를 변환해서 입력
         club[tempId].member.push(msg.sender);   // msg.sender를 멤버에 추가
         club[tempId].numberOfMember = 1;        // 멤버수 증가
-        //club[tempId].authority[msg.sender] = 1; // 해당 멤버의 권한을 1로 설정
+        club[tempId].authority[msg.sender] = 1; // 해당 멤버의 권한을 1로 설정
         club[tempId].balance = 0;               // 클럽의 지분을 0으로 초기화
         club[tempId].numberOfMeeting = 0;       // 클럽의 모임수를 0으로 초기화
 
@@ -54,7 +54,7 @@ contract ClubManager is MemberManager{ // 클럽 관리에 필요한 Contract
         bytes32 tempId = stringToBytes32(_clubId);
         require(isClubIdExist(_clubId));
         require(isMemberIdExist(_memberId));
-//        require(club[tempId].authority[msg.sender] == 1);
+        require(club[tempId].authority[msg.sender] == 1);
         club[tempId].member.push(_memberId);
         club[tempId].numberOfMember++;
         club[tempId].authority[_memberId] = _authority;
@@ -70,7 +70,7 @@ contract ClubManager is MemberManager{ // 클럽 관리에 필요한 Contract
         bytes32 tempId = stringToBytes32(_clubId);  // member가 참여하고 있지 않아야함
         require(isMemberInClub(_clubId, _memberId));
         require(isMemberInClub(_clubId, msg.sender));
-        //require(club[tempId].authority[msg.sender] == 1 || _memberId == msg.sender);
+        require(club[tempId].authority[msg.sender] == 1 || _memberId == msg.sender);
         // _memberId가 자기 자신이거나 관리자일 경우만 삭제가능
         
         for(uint i = 0 ; i < club[tempId].numberOfMeeting ; i++){

@@ -17,7 +17,7 @@ contract MeetingManager is ClubManager{
         require(isClubIdExist(_clubId));
         require(isMemberIdExist(msg.sender));
         require(!isMeetingIdExist(_clubId, _meetingId, _time));
-        //require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
+        require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
         Meeting memory temp;
         temp.id = _meetingId;
         temp.time = _time;
@@ -58,7 +58,7 @@ contract MeetingManager is ClubManager{
         bytes32 tempId = argToBytes32(_clubId, _meetingId, _time);
         require(isMeetingIdExist(_clubId, _meetingId, _time));
         require(meeting[tempId].state == 0);
-        //require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
+        require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
         
         
         meeting[tempId].member.push(_memberId);
@@ -81,7 +81,7 @@ contract MeetingManager is ClubManager{
         require(isClubIdExist(_clubId));
         require(isMeetingIdExist(_clubId, _meetingId, _time));
         require(isMemberInMeeting(_clubId, _meetingId, _time, msg.sender));
-        //require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
+        require(club[stringToBytes32(_clubId)].authority[msg.sender] == 1);
         bytes32 tempId = argToBytes32(_clubId, _meetingId, _time);
         require(meeting[tempId].state == 0);
 
