@@ -29,7 +29,10 @@ function startApp() {
     else{
       myAddress = accounts[0];
       window.web3.eth.defaultAccount = accounts[0];
-    }
+      if (document.getElementById('addMember')) {
+        $('#addMember').trigger('submit');
+      }
+     }
   });
 
   var accountInterval = setInterval(function () {
@@ -62,6 +65,7 @@ $('#checkMetamask').click(function () {
 // 회원 가입 시 멤버 생성
 $("#memberCreate").submit(function () {
   if (firstCall) {
+    $("#meta_address").val(myAddress);
     myContract.memberCreate.sendTransaction({ from: myAddress }, 
       function (err, transactionHash) {
         if (!err) {
@@ -156,22 +160,19 @@ $("#addMember").submit(function () {
   if(firstCall){
 
       var clubID = document.getElementById("clubName").value;
-      var memberID = myAddress;
+      var memberID = document.getElementById("memberAddress").value;
       var authority = 2;
 
-      var clubMembers = $("#clubMembers").val();
-      console.log(clubMembers);
-
-
-
-      myContract.addMember.sendTransaction(clubID, memberID, authority, { from: myAddress }, function (err, transactionHash) {
-          if (!err){
-            console.log(transactionHash + " success");
-            firstCall= false;
-            $("#addMember").submit();
-          }
+      // 클럽에 멤버 추가
+      myContract.addMemberInClub.sendTransaction(clubID, memberID, authority, { from: myAddress }, function (err, transactionHash) {
+        if (!err) {
+          console.log(transactionHash + " success");
+          firstCall = false;
+          $("#addMember").submit();
         }
+      }
       );
+      
       return false;
   }else{
     return true;
@@ -182,6 +183,51 @@ $("#addMember").submit(function () {
 
 
 
+$('#managerConfirmButton').click(function () {
+
+  var clubID = document.getElementById("clubName").value;
+  var meetingID = document.getElementById("meetingName").textContent;
+  var time = parseInt(document.getElementById("unixDate").value);
+  var balance = parseInt(document.getElementById("meetingFee").value);
+
+  myContract.isClubIdExist.call(clubID, function (err, result) {
+    if (!err)
+    {
+      console.log(result);
+    }
+  });
+
+  // 모임을 생성하는 함수
+  myContract.meetingCreate.sendTransaction(clubID, meetingID, time, balance, { from: myAddress }, function (err, transactionHash) {
+    if (!err)
+    {
+      console.log(transactionHash + " success");
+      var url = $("#managerConfirmButton").attr("href");
+      location.href = url;
+    }
+  });
+
+  return false;
+});
+
+
+
+
+$('#payButton').click(function () {
+
+
+  // 모임을 생성하는 함수
+  myContract.clubCreate.sendTransaction('testClub3', { from: myAddress }, function (err, transactionHash) {
+    if (!err)
+    {
+      console.log(transactionHash + " success");
+      var url = $("#payButton").attr("href");
+      location.href = url;
+    }
+  });
+
+  return false;
+});
 
 
 

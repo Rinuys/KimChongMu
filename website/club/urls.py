@@ -25,6 +25,7 @@ urlpatterns = [
 
     # ex : /club/<int:clubid>/member
     url(r'^(?P<club_id>\d+)/member/$', views.member, name='member' ),
+    url(r'^(?P<club_id>\d+)/member/checkMember/$', views.checkMember, name='checkMember' ),
     # ex : /club/<int:clubid>/member/addMember
     url(r'^(?P<club_id>\d+)/member/addMember/$', views.addMember, name='addMember' ),
     

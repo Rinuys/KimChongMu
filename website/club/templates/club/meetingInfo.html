@@ -37,17 +37,23 @@
         </div>
         <hr>
         <div class="subheading"> 모임명 </div>
-        <h6> {{ meeting.name }} </h6>
+        <h6 id="meetingName" value="{{ meeting.name }}"> {{ meeting.name }} </h6>
         <hr>
         <div class="subheading"> 모임 날짜 </div>
         <h6> {{ meeting.date }} </h6>
-        <hr>
+        <hr> 
         <div class="subheading"> 모임 시간 </div>
         <h6> {{ meeting.time }} </h6>
+        <hr>
+        <div class="subheading"> 예치금액 </div>
+        <h6> {{ meeting.fee }} Wei </h6>
         <hr>
         <div class="subheading"> 모임 내용 </div>
         <h6> {{ meeting.comment }} </h6>
         <hr>
+        <input type="hidden" id="clubName" value="{{club.name}}">
+        <input type="hidden" id="unixDate" value="{{unixDate}}">
+        <input type="hidden" id="meetingFee" value="{{ meeting.fee }}">
       </div>
     </div>
 
@@ -109,11 +115,8 @@
 
 {% block js %}
 
-<script src='{% static "chongmu/ABI(180807).js" %}'></script>
 <script type="text/javascript">
 
-
-  
   $(function () {
 
       var meetingFounder = "{{meeting.founder.all.0.member_id}}";
@@ -124,20 +127,6 @@
       } else {
         $("#memberConfirmButton").show();
       }
-
-
-
-      if (typeof web3 !== 'undefined') {
-        web3 = new Web3(web3.currentProvider);
-      } else {
-        // set the provider you want from Web3.providers
-        console.log("메타마스크를 설치해 주세요.");
-      }
-
-      var myContractAddress = '0xb3929ff60b46cd191f6d8712c5a90d8e2220c5fe';
-      var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
-      var myAddress = web3.eth.accounts[0];
-
 
       var isPaid = false;
 
@@ -155,51 +144,5 @@
 
     }
     )
-
-
-
-  $('#managerConfirmButton').click(function () {
-
-    var myContractAddress = '0xb3929ff60b46cd191f6d8712c5a90d8e2220c5fe';
-    var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
-    var myAddress = web3.eth.accounts[0];
-
-    // 모임을 생성하는 함수
-    myContract.clubCreate.sendTransaction('testClub3', { from: myAddress }, function (err, transactionHash) {
-      if (!err)
-      {
-        console.log(transactionHash + " success");
-        var url = $("#managerConfirmButton").attr("href");
-        location.href = url;
-      }
-    });
-
-    return false;
-  });
-
-  $('#payButton').click(function () {
-
-    var myContractAddress = '0xb3929ff60b46cd191f6d8712c5a90d8e2220c5fe';
-    var myContract = web3.eth.contract(kimchongmuABI).at(myContractAddress);
-    var myAddress = web3.eth.accounts[0];
-
-    // 모임을 생성하는 함수
-    myContract.clubCreate.sendTransaction('testClub3', { from: myAddress }, function (err, transactionHash) {
-      if (!err)
-      {
-        console.log(transactionHash + " success");
-        var url = $("#payButton").attr("href");
-        location.href = url;
-      }
-    });
-
-    return false;
-  });
-
-
-  
-
-
-
 </script> 
 {% endblock %}

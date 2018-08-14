@@ -15,7 +15,7 @@
     <div class="card-body">
       <div class="subheading"> 멤버추가 </div>
       <hr>
-      <form action="{% url 'club:addMember' club.id %}" method="post" id="addMember">
+      <form action="{% url 'club:checkMember' club.id %}" method="post" id="checkMember">
         {% csrf_token %}
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="추가할 멤버 ID" name="member_id" id="memberID" aria-describedby="button-addon2"/>
@@ -42,7 +42,3 @@
   </div>
 </div>
   {% endblock %}
-
-
-{% block js %}
-{% endblock %}

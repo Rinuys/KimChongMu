@@ -23,6 +23,7 @@ class Meeting(models.Model):
     name = models.CharField(max_length=50)
     date = models.DateField(default='2018-01-01')
     time = models.TimeField(default='0:0')
+    fee = models.IntegerField(default=0)
     comment = models.TextField(default='')
     founder = models.ManyToManyField(Member,  related_name="founder")
     checkCompleted = models.BooleanField(default = False)

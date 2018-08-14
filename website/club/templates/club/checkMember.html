@@ -1,0 +1,29 @@
+{% extends "club/club_base.html" %}
+{% load static %}
+
+
+{% block list %}
+<a href="{% url 'club:index' club.id %}" class="list-group-item list-group-item-action ">게시판</a>
+<a href="{% url 'club:member' club.id %}" class="list-group-item list-group-item-action bg-light text-body">멤버</a>
+<a href="{% url 'club:meeting' club.id %}" class="list-group-item list-group-item-action">모임</a>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="card w-100">
+    <div class="card-body">
+      <div class="subheading"> 멤버추가중 </div>
+      <hr>
+      <form action="{% url 'club:addMember' club.id %}" method="post" id="addMember">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="hidden" name="memberID" value="{{member.member_id}}">
+          <input type="hidden" id="clubName" value="{{club.name}}"/>
+          <input type="hidden" id="memberAddress" value="{{member.meta_address}}"/>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  {% endblock %}

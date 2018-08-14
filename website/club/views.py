@@ -49,10 +49,24 @@ def member(request, club_id):
     return render(request, 'club/member.html', {'club':club, 'meetingList':meetingList})
 
 
-def addMember(request, club_id):
+def checkMember(request, club_id):
 
     memberID = request.POST['member_id']
 
+    club = get_object_or_404(Club, pk=club_id)
+    try:
+        member = Member.objects.get(member_id = memberID)
+    except Member.DoesNotExist:
+        print("존재하지 않는 ID입니다.")
+        return render(request, 'club/IDError.html', {'club':club})
+
+
+    return render(request, 'club/checkMember.html', {'club':club, 'member':member})
+
+
+def addMember(request, club_id):
+
+    memberID = request.POST['memberID']
     club = get_object_or_404(Club, pk=club_id)
     member = get_object_or_404(Member, member_id=memberID)
 
@@ -82,10 +96,11 @@ def createMeeting(request, club_id):
     hour = request.POST['hour']
     minute = request.POST['minute']
     comment = request.POST['comment']
+    fee = request.POST['fee']
 
     time = str(hour)+":"+str(minute)
 
-    meeting = club.meeting_set.create(name = name, date = date, time=time, comment=comment)
+    meeting = club.meeting_set.create(name = name, date = date, time=time, comment=comment, fee=fee)
     meeting.members.add(member)
     meeting.founder.add(member)
     club.save()
@@ -162,9 +177,12 @@ def meetingInfo(request, club_id, meeting_id):
     # 전체 모임멤버들의 초대수락 여부확인
     invitationList = meeting.invitation_set.all()
     state = checkMeetingState(meeting)
-    
 
-    return render(request, 'club/meetingInfo.html', {'club':club, 'meetingList':meetingList, 'meeting':meeting, 'timeout':timeout, 'invitationList':invitationList, 'state':state, 'checkCompleted':meeting.checkCompleted})
+
+    unix_timestamp = int(time.mktime(meeting.date.timetuple()))
+    print(unix_timestamp)
+
+    return render(request, 'club/meetingInfo.html', {'club':club, 'meetingList':meetingList, 'meeting':meeting, 'timeout':timeout, 'invitationList':invitationList, 'state':state, 'checkCompleted':meeting.checkCompleted, 'unixDate':unix_timestamp})
 
 def confirmMeeting(request, club_id, meeting_id):
 
