@@ -4,35 +4,33 @@
 
   {% block body %}
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script language="javascript" type="text/javascript" src="{% static "chongmu/js/kimchongmuABI.js"%}"></script>
+  <script language="javascript" type="text/javascript" src="{% static "chongmu/js/kimchongmuABI1.js"%}"></script>
   <script language="javascript" type="text/javascript" src="{% static "chongmu/js/web3.js" %}"></script>
   <script language="javascript" type="text/javascript" src="{% static "chongmu/js/contract.js" %}"></script>
 
       <!-- Main Content -->
       <section class="bg-light" id="myclub">
         <div class="container">
-          <script>
-            var memberInfo;
-            web3.eth.getAccounts(function(error, result){
-              if (error) return console.error(error);
-              else window.contractInstance.member(result[0], function(error, result){
-                if (error) return console.error(error);
-                else memberInfo.innerHTML = (JSON.stringify(result));
-              });
-            });
-            //  document.getElementById("testMypage").POST(memberInfomation.numberOfClub);
 
-          </script>
           <div id="testMypage">
             여기test
             <div id="temp_mem">
               memberinfo다
             </div>
+
             <script>
               var memberInfo = document.getElementById("temp_mem");
-              memberInfo.innerHTML = JSON.stringify(getMember());
+              web3.eth.getAccounts(function(error, result){
+                if (error) return console.error(error);
+                else myContract.member(result[0], function(error, result){
+                  if (error) return console.error(error);
+                  else memberInfo.innerHTML = (JSON.stringify(result));
+                });
+              });
+              //  document.getElementById("testMypage").POST(memberInfomation.numberOfClub);
 
             </script>
+
 
           </div>
             <div class="row justify-content-center">

@@ -1,11 +1,9 @@
-<<<<<<< HEAD
-var kimchongmuAddress = "0xc3ef363588d77a0bb7e06609afc37e1f113bedf0";
-=======
+
+
 var kimchongmuAddress = "0x4591e6485f07eef4f36eff8fe4ad1877383b6779";
 var myContract;
 var myAddress;
 var firstCall;
->>>>>>> 2243127c9defda460d568560c7ba65ca8ef35d05
 
 // 화면이 load되면 metaMask 체크
 window.addEventListener('load', function () {
@@ -17,19 +15,14 @@ window.addEventListener('load', function () {
   }
 });
 
-<<<<<<< HEAD
-//memberCreate();//본인의 주소가 멤버아이디로 사용되기 때문에 매개변수 필요x
-//getClubInfo(clubId);
-=======
->>>>>>> 2243127c9defda460d568560c7ba65ca8ef35d05
 
 // 초기화 함수
 function startApp() {
-  
-  myContract = web3.eth.contract(kimchongmuABI).at(kimchongmuAddress);
+
+  myContract =web3.eth.contract(kimchongmuABI).at(kimchongmuAddress);
   firstCall = true;
   web3.eth.getAccounts(function (error, accounts) {
-    if (error) { 
+    if (error) {
       return console.error(error)
     }
     else if(accounts.length == 0){
@@ -62,7 +55,7 @@ $('#checkMetamask').click(function () {
     return false;
   }else{
     var url = $("#checkMetamask").attr("href");
-    location.href = url;  
+    location.href = url;
   }
 });
 
@@ -71,7 +64,7 @@ $('#checkMetamask').click(function () {
 // 회원 가입 시 멤버 생성
 $("#memberCreate").submit(function () {
   if (firstCall) {
-    myContract.memberCreate.sendTransaction({ from: myAddress }, 
+    myContract.memberCreate.sendTransaction({ from: myAddress },
       function (err, transactionHash) {
         if (!err) {
           console.log(transactionHash + " success");
@@ -95,9 +88,9 @@ $("#clubCreate").submit(function () {
     var clubName = document.getElementById("clubName").value;
 
     // 존재하는 클럽명인지 체크
-    myContract.isClubIdExist.call(clubName, 
+    myContract.isClubIdExist.call(clubName,
       function (err, result) {
-        if (err) 
+        if (err)
           return console.error(err);
         if(result == true){
           console.log(clubName);
@@ -115,10 +108,10 @@ $("#clubCreate").submit(function () {
     return true;
   }
 });
-  
+
 function createClub(clubName){
   // 클럽 생성
-  myContract.clubCreate.sendTransaction(clubName, { from: myAddress }, 
+  myContract.clubCreate.sendTransaction(clubName, { from: myAddress },
     function (err, transactionHash) {
       if (!err) {
         console.log(transactionHash + " success");
@@ -235,4 +228,3 @@ function getMemberInfo(){
     });
   });
 }
-
