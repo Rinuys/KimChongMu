@@ -245,7 +245,23 @@ def checkAttendance(request, club_id, meeting_id):
     return HttpResponseRedirect(reverse('club:meeting', args=(club.id,)))
 
 
+def leaveClub(request, club_id):
 
+    club = get_object_or_404(Club, pk=club_id)
+    member = get_object_or_404(Member, member_id=request.session['member_id'])
+    
+    # 진행중인 모임에서 탈퇴멤버 제거 & 관련 쪽지 제거
+    leavingMeetings = member.meeting_set.filter(checkCompleted=False, club=club)
+    for meeting in leavingMeetings:
+        meeting.members.remove(member)
+        meeting.invitation_set.filter(receiver = member).delete()
+        meeting.save()
+
+    # 클럽에서 탈퇴멤버 제거
+    club.members.remove(member)
+    club.save()
+
+    return HttpResponseRedirect(reverse('chongmu:main'))
 
 #----------------------------
 
@@ -307,4 +323,7 @@ def checkMeetingState(meeting):
         state = 'allAccept'
 
     return state
+
+
+
 

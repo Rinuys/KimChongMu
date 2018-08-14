@@ -1,4 +1,4 @@
-var kimchongmuAddress = "0x9ab46ca98da3c4da146daa5c9edf9019c55e3786";
+var kimchongmuAddress = "0xc3ef363588d77a0bb7e06609afc37e1f113bedf0";
 
 function startApp(){
 
@@ -13,8 +13,8 @@ function startApp(){
       // 사용자들에게 Metamask를 설치하라는 등의 메세지를 보여줄 것
     }
   });
-  var myContract = web3.eth.contract(kimchongmuABI1);
-  window.contractInstance = web3.eth.contract(kimchongmuABI1).at(kimchongmuAddress);
+  var myContract = web3.eth.contract(kimchongmuABI);
+  window.contractInstance = web3.eth.contract(kimchongmuABI).at(kimchongmuAddress);
 
   web3.eth.getAccounts(function(error, result){
             if (error) return console.error(error);
@@ -76,10 +76,20 @@ window.contractInstance.club(_clubId, function(error, result){
 });
 }
 
-function getMemberInfo(){
+function getMember(){
   web3.eth.getAccounts(function(error, result){
     if (error) return console.error(error);
     else window.contractInstance.member(result[0], function(error, result){
+      if (error) return console.error(error);
+      else console.log(JSON.stringify(result));
+    });
+  });
+}
+
+function getMemberInfo(){
+  web3.eth.getAccounts(function(error, result){
+    if (error) return console.error(error);
+    else window.contractInstance.getMemberInfo(function(error, result){
       if (error) return console.error(error);
       else console.log(JSON.stringify(result));
     });

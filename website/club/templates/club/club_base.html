@@ -19,7 +19,18 @@
             {% endif %}
           
           <div class="card-body">
-            <h4>{{club.name}}</h4>
+            <h4>
+              {{club.name}}
+              <div class="float-right">
+                <a href="{% url 'club:leaveClub' club.id %}" class="col-sm-12" id="deleteClubButton" style="display:none">
+                  <span class="badge badge-pill badge-secondary  align-bottom" style="font-size:10px">클럽삭제</span>
+                </a>
+                
+                <a href="{% url 'club:leaveClub' club.id %}" class="col-sm-12" id="leaveClubButton" style="display:none">
+                  <span class="badge badge-pill badge-secondary  align-bottom" style="font-size:10px">클럽탈퇴</span>
+                </a>
+              </div>
+            </h4>
           </div>
         </div>
         

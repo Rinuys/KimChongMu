@@ -12,18 +12,28 @@
       <section class="bg-light" id="myclub">
         <div class="container">
           <script>
-            web3.eth.getAccount(function(error, result){//뒤function으로 account전달
-              if(error) return consol.error(error);
-              //web3.eth의 0번째에 account가 있기때문
-              var outputspace = document.getElementById('testMypage');
-              consol.log(getMemberInfo(result[0]));
-              outputspace.innerHtml = web3.toAscii(assessment.getMemberInfo(result[0]));
-
-            //  document.getElementById("testMypage").POST(memberInfomation.numberOfClub);
+            var memberInfo;
+            web3.eth.getAccounts(function(error, result){
+              if (error) return console.error(error);
+              else window.contractInstance.member(result[0], function(error, result){
+                if (error) return console.error(error);
+                else memberInfo.innerHTML = (JSON.stringify(result));
+              });
             });
+            //  document.getElementById("testMypage").POST(memberInfomation.numberOfClub);
+
           </script>
           <div id="testMypage">
             여기test
+            <div id="temp_mem">
+              memberinfo다
+            </div>
+            <script>
+              var memberInfo = document.getElementById("temp_mem");
+              memberInfo.innerHTML = JSON.stringify(getMember());
+
+            </script>
+
           </div>
             <div class="row justify-content-center">
                 <div class="col-9 center-block">
